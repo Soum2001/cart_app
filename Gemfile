@@ -79,3 +79,4 @@ gem 'bootstrap-will_paginate'
 
 gem 'kaminari'
 gem 'pry-byebug'
+gem 'jquery'

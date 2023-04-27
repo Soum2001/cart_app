@@ -16,7 +16,7 @@ class CartItemsController < ApplicationController
     end
 
     def update
-      @product_id = params[:product_id]
+      @product_id = params[:id]
       @cart_item = current_user.cart.cart_items.find_by(product_id: @product_id)
       if(params[:act]=="inc")
           @cart_item.quantity =  @cart_item.quantity+1
@@ -24,6 +24,7 @@ class CartItemsController < ApplicationController
         @cart_item.quantity =  @cart_item.quantity-1
       end
       @cart_item.save
+      redirect_to cart_index_path
     end
 end
 
