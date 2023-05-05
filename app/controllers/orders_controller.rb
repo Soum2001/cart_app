@@ -5,10 +5,11 @@ class OrdersController < ApplicationController
         @order = current_user.order.create(invoice_number: Time.now.to_f.ceil)
         current_user.cart.cart_items.each do |cart_item|
             @total_price = @total_price + cart_item.product.price * cart_item.quantity
-            @order.order_items.create(product_id: cart_item.product_id, quantity: cart_item.quantity)
+            @order_items = @order.order_items.create(product_id: cart_item.product_id, quantity: cart_item.quantity)
             cart_item.destroy
         end
         @order.update(total_price: @total_price)
+        OrderMailer.order_checkout(current_user,@order,@order_items).deliver_now
         redirect_to orders_path
         # cart_items   = current_user.cart.cart_items.pluck(:product_id,:quantity)
         # total_price  = cart_items.sum{|item| Product.find(item[0]).price*item[1]}
@@ -52,8 +53,10 @@ class OrdersController < ApplicationController
     
         if @order.blank?
             flash[:now] = "Order items not present"
-            redirect_to orders_path
+            redirect_to orders_path and return
         end
+
+         @order_items = @order.order_items.eager_load(:product)
         
     end
 end

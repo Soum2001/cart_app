@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 end
 
 devise_scope :user do
-root to: 'devise/sessions#new'
+root to: 'devise/sessions#home'
 end
 
  resources :dashboard, only: [:index]
@@ -16,7 +16,7 @@ end
  resources :cart_items, only: [:create, :update]
  resources :orders, only: [:create,:index]
  resources :orders, only: [:show]
-
+ get '/search', to: 'products#search', as: 'search'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

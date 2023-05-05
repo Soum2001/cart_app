@@ -11,11 +11,8 @@
     <%= javascript_importmap_tags %> 
   </head>
   <body>
-    <div class="container">
-      <% if  user_signed_in? %>
-        <%= render "layouts/navbar" %>
-      <%end%>
-      <%= yield %>
-    </div>
+    
+      <%= render "layouts/navbar" %>
+        <%= yield %>
   </body>
 </html>

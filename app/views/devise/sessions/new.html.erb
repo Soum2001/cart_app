@@ -1,11 +1,13 @@
-  <div class="container h-100">
+  <%
+=begin%>
+ <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-12 col-xl-11">
-        <div class="card text-black" style="border-radius: 25px;">
+        <div class="card text-black" style="border-radius: 25px;margin-top:100px">
           <div class="card-body p-md-5">
             <div class="row justify-content-center">
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                  <h2>Log in</h2>
+                  <h2 style="text-align:center">Log in</h2>
                   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                     <div class="form-group">
                       <%= f.label :email %><br />
@@ -24,10 +26,11 @@
                       </div>
                     <% end %>
 
-                    <div class="actions">
+                    <div class="actions" style="text-align:center">
                       <%= f.submit "Log in", class: "btn btn-primary" %>
                     </div>
                   <% end %>
+                  
                   <%= render "devise/shared/links" %>
                 
               </div>
@@ -37,6 +40,64 @@
       </div>
     </div>
   </div>
+
+
+
+
+
+CSS 
+<%
+=end%>
+<h1 style="text-align:center">Log in</h1>
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+      <%= image_tag('cartt.avif', class: "img-fluid", alt: "Sample image") %>
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder:'enter email'%>
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-3">
+            <%= f.label :password %><br />
+            <%= f.password_field :password, autocomplete: "current-password", class: 'form-control',placeholder:'enter password' %>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- Checkbox -->
+            <div class="form-check mb-0">
+              <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+              <label class="form-check-label" for="form2Example3">
+                Remember me
+              </label>
+            </div>
+            <%= render "devise/shared/links" %>
+          </div>
+
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <%= f.submit "Log in", class: "btn btn-primary btn-lg" %>
+            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
+                class="link-danger">Register</a></p>
+          </div>
+         <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+  
 
 
 

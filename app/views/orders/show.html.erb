@@ -1,4 +1,6 @@
-<section style="background-color: #eee;">
+<%
+=begin%>
+ <section style="background-color: #eee;">
 <div class="container">
     <h1>Order Details</h1>
     <div class="row">
@@ -15,6 +17,35 @@
     <% end %>
     </div>
     </div>
-</section>
+</section> 
+<%
+=end%>
 
+    <div class="container">
+        <h1>Orders</h1>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                    </tr>
 
+                </thead>
+                <tbody>
+                    <% @order_items.each do |order_item| %>
+                        <tr>
+                            <td scope="row"><%= order_item.product.name%></th>
+                            <td><%= order_item.product.price %></td>
+                            <td><%= order_item.quantity %></td>
+                        </tr>
+                    <% end %>
+                    <tr>
+                        <th colspan="1">Total Price:</th>
+                        <td ><%= @order.total_price%></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+    </div>

@@ -1,25 +1,23 @@
-
-<section style="background-color: #eee;">
-    <div class="container">
-        <h1>Product Details</h1>
-
-        <div class="row">
-            <% @products.each do |product| %>
-                <div class="col-sm-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <%= product.name%> </br>
-                            <%= product.price %> </br>
-                            <%= button_to "Add Cart", cart_items_path + "?product_id=#{product.id}",  method: :post %>
-                        </div>
+<div class="container">
+    <h1>Product Details</h1>
+    <%= form_tag search_path, method: :get, class: "d-flex" do %>
+    <%= text_field_tag :search, nil, class: "form-control me-2", placeholder: "Search", aria: { label: "Search" }, id: "search_product" %>
+    <%= button_tag "Search", type: :submit, class: "btn btn-outline-success" %>
+    <% end %> 
+    <div class="row">
+        <% @products.each do |product| %>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <%= product.name%> </br>
+                        <%= product.price %> </br>
+                        <%= button_to "Add to Cart", cart_items_path(product_id: product.id,format: "js"), remote: true,  data: {type: :js}%>
                     </div>
                 </div>
-            <% end %>
-        </div>
+            </div>
+        <% end %>
     </div>
-</section>
-
+</div>
 <%= paginate @products %>
-
 
 
