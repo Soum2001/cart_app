@@ -1,5 +1,43 @@
-<div class="container">
-    <h1>Welcome to your dashboard, <%= current_user.first_name %>!</h1>
-    <p>Email: <%= current_user.email %></p>
-    <p>Name: <%= current_user.first_name %><%= current_user.last_name %></p>
-</div>
+<%
+=begin%>
+ <div class="container">
+    <% if can? :manage, :dashboard %>
+        <% @user.each do |user| %>
+            <h1>Welcome to your dashboard, <%= user.first_name %>!</h1>
+        <%end%>
+    <% else %>
+        <!-- Display content for regular user -->
+        <h1>Welcome,<%= @user.first_name%></h1>
+    <% end %>
+</div> 
+<%
+=end%>
+
+
+    <div class="container"> 
+        <div class="row">
+        <% if can? :manage, :dashboard %>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Customer name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @user.each do |user| %>
+                        <tr>
+                            <td scope="row"><%= user.first_name %></th>
+                            <td><%= user.email %></td>
+                            <td><%= button_to "delete", class: "btn btn-success" ,method: :delete%></td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        <% else %>
+            <!-- Display content for regular user -->
+            <h1>Welcome,<%= @user.first_name%></h1>
+        <% end %>
+        </div> 
+    </div>

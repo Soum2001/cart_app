@@ -14,7 +14,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% current_user.order.each do |order| %>
+                    <% current_user.orders.each do |order| %>
                         <tr>
                             <td scope="row"><%= order.invoice_number%></th>
                             <td><%= order.total_price %></td>

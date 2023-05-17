@@ -1,0 +1,11 @@
+<h1>Confirm your account</h1>
+
+<p>Hello <%= @user.email %>,</p>
+
+<p>Thanks for signing up with My App! Please confirm your email address by clicking the link below:</p>
+
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+<p>If you didn't sign up for My App, you can safely ignore this email.</p>
+
+<p>Best regards,<br>My App Team</p>

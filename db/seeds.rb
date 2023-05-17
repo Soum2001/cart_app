@@ -16,7 +16,31 @@
 #     product.save
 # end
 
-
+#for product
 (1..100).each do |i|
     Product.create(name: "product#{i}", price: rand(100.00..999.99) )
+end
+
+#for category
+category = [
+    {category_name: "electronics"},
+    {category_name: "Fashoin"},
+    {category_name: "Beauty"},
+    {category_name: "Grocery"},
+    {category_name: "Mobile"},
+    {category_name: "Furniture"}
+]
+category.each do|catem|
+    product_category = ProductCategory.new(catem)
+    product_category.save
+end
+
+#for role
+data = [
+    {role: "admin"},
+    {role: "user"}
+]
+data.each do|role|
+    role_entry = Role.new(role)
+    role_entry.save
 end

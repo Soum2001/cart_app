@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_25_091557) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_15_103725) do
   create_table "cart_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "cart_id"
     t.integer "product_id"
@@ -26,6 +26,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_25_091557) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "fk_rails_ea59a35211"
+  end
+
+  create_table "map_role_users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "role_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["role_id"], name: "fk_rails_db62dfee05"
+    t.index ["user_id"], name: "fk_rails_9cb4a7403b"
   end
 
   create_table "order_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -46,11 +55,32 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_25_091557) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "product_categories", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "category_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "product_category_with_products", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "product_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_category_id"], name: "fk_rails_d6b85286c9"
+    t.index ["product_id"], name: "fk_rails_40d1215ca6"
+  end
+
   create_table "products", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "price", precision: 8, scale: 2
+  end
+
+  create_table "roles", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -63,7 +93,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_25_091557) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "dob"
+    t.datetime "dob", precision: nil
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.string "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -71,6 +106,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_25_091557) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users"
+  add_foreign_key "map_role_users", "roles"
+  add_foreign_key "map_role_users", "users"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
+  add_foreign_key "product_category_with_products", "product_categories"
+  add_foreign_key "product_category_with_products", "products"
 end
