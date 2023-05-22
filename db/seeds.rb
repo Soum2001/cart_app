@@ -24,11 +24,11 @@ end
 #for category
 category = [
     {category_name: "electronics"},
-    {category_name: "Fashoin"},
-    {category_name: "Beauty"},
-    {category_name: "Grocery"},
-    {category_name: "Mobile"},
-    {category_name: "Furniture"}
+    {category_name: "fashion"},
+    {category_name: "beauty"},
+    {category_name: "grocery"},
+    {category_name: "mobile"},
+    {category_name: "furniture"}
 ]
 category.each do|catem|
     product_category = ProductCategory.new(catem)
@@ -43,4 +43,9 @@ data = [
 data.each do|role|
     role_entry = Role.new(role)
     role_entry.save
+end
+
+category.each do|catem|
+    product_category = Category.new(catem)
+    product_category.save
 end

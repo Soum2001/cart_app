@@ -1,15 +1,18 @@
 class User < ApplicationRecord
- 
+  include Kaminari::PageScopeMethods
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
+  validates :first_name, presence: true, format: { with: /\A[A-Za-z]+\z/, message: "should only contain alphabetic characters" }
+  validates :last_name, presence: true, format: { with: /\A[A-Za-z]+\z/, message: "should only contain alphabetic characters" }
   validates :dob,  presence: true
   validates :email, uniqueness: true
-  has_one :cart
-  has_many :orders
-  has_many :map_role_users
-  has_many :roles, through: :map_role_users
+  has_one :cart, dependent: :destroy 
+  has_many :orders, dependent: :destroy 
+  has_many :user_roles
+  has_many :roles, through: :user_roles, dependent: :destroy
+  has_one  :user_profile
   after_create :create_cart, 
 
   def create_cart
@@ -24,10 +27,7 @@ class User < ApplicationRecord
     self.roles.first.role == requested_role.to_s
   end
 
-  protected
-  def confirmation_required?
-    false
-  end
+
 end
 
 

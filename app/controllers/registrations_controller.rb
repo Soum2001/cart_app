@@ -1,49 +1,45 @@
 class RegistrationsController < Devise::RegistrationsController
   before_action :configure_permitted_parameters
 
-    def create
-        email = params[:user][:email]
-        password = params[:user][:password]
-        password_confirmation = params[:user][:password_confirmation]
-        # Check duplicate email
-        existing_user = User.find_by(email: email)
-        if existing_user  
-            flash[:alert] = 'Email already exists'
-            redirect_to new_user_registration_path
-        else  
-            if password == password_confirmation
-                # Password confirmation matched
-                user = User.new(sign_up_params)  
-                if user.save
-                    user_role = MapRoleUser.new(role_id: params[:user][:role], user_id: user.id)
-                    if user_role.save
-                        flash[:notice] = 'Go to mail and confirm your account'
-                        user.send_confirmation_instructions
-                        redirect_to new_user_registration_path
-                    else
-                        flash[:alert] = 'Failed to create user'
-                        redirect_to new_user_registration_path
-                    end
-                else
-                flash[:alert] = 'Failed to create user'
-                redirect_to new_user_registration_path
-                end
-            else
-                # Password confirmation does not match
-                flash[:alert] = 'Password confirmation does not match '
-                redirect_to new_user_registration_path
-            end
-        end
+  def create
+    email = params[:user][:email]
+    password = params[:user][:password]
+    password_confirmation = params[:user][:password_confirmation]
+    redirect_to new_user_registration_path, alert: 'Email already exists' and return if User.exists?(email: email)
+    redirect_to new_user_registration_path, alert: 'Password confirmation does not match' and return if  password != password_confirmation
+    super do |resource|
+      if resource.valid?
+        # Add role to user
+        UserRole.create(user_id: resource.id, role_id: params[:user][:role_id])
+        flash[:notice] = 'Go to mail and confirm your account'
+        resource.send_confirmation_instructions if resource.persisted?
+        redirect_to new_user_registration_path and return
+      else
+        flash[:alert] = resource.errors.full_messages.to_s
+        redirect_to new_user_registration_path and return
+      end
     end
+  end
+  
+  protected
+  def after_sign_up_path_for(resource)
+    # Add your custom logic here
+    # For example, you can redirect to a different page or render a specific view
+    new_user_registration_path
+  end
 
-    protected
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :email,:last_name, :dob, :password, :password_confirmation, :confirmable])
+  end
+  
+  def after_confirmation_path_for(resource_name, resource)
+    # Redirect to the dashboard after the user confirms their account
+    dashboard_index_path
+  end
 
-    def configure_permitted_parameters
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :email,:last_name, :dob, :password, :password_confirmation, :confirmable])
-    end
-
-    private
-    def sign_up_params
-      params.require(:user).permit(:email, :first_name, :last_name, :dob, :password, :password_confirmation)
-    end
+  private
+  def sign_up_params
+    params.require(:user).permit(:email, :first_name, :last_name, :dob, :password, :password_confirmation)
+  end
+  
   end

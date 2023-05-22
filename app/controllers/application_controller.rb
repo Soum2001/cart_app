@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-
   before_action :authenticate_user!
   
   def current_ability
@@ -9,16 +8,10 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do | exception |
     redirect_to root_url, alert: exception.message
   end
-    private
+  private
 
-    def after_sign_in_path_for(resource)
-      '/dashboard'
-    end
+  def after_sign_in_path_for(resource)
+    '/dashboard'
+  end
 
-    protected
-
-    def after_confirmation_path_for(resource_name, resource)
-      # Redirect to the dashboard after the user confirms their account
-      dashboard_path
-    end
 end

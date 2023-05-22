@@ -28,7 +28,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-# gem "redis", "~> 4.0"
+gem "redis", "~> 4.0"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -76,11 +76,12 @@ gem 'devise'
 gem 'bootstrap', '~> 5.1.3'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
-
 gem 'kaminari'
 gem 'pry-byebug'
 gem 'jquery'
 gem 'font-awesome-sass'
-gem 'turbo-rails'
 gem 'cancancan'
 gem 'popper_js', '~> 2.10', require: 'popper_js'
+gem 'hotwire-rails'
+gem 'jquery-rails'
+gem 'webpacker'

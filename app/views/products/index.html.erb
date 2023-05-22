@@ -1,42 +1,50 @@
- <div class="row mx-0">
- <div class="col-md-2 px-0">
-<nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
-    <div class="position-sticky">
-      <div class="list-group list-group-flush mx-3 mt-2">
-        <h3>Category</h3>
-        <%= link_to 'all product', products_path%>
-        </br>
-        <% ProductCategory.all.each do |category| %>
-            <%= link_to category.category_name, products_path + "?category_id=#{category.id}",method: :get%>
-            </br>
-        <% end %>
-      </div>
-    </div>
-</nav>
-</div>
-<div class="col-md-10 px-0">
-<div class="container">
-    <h1>Product Details</h1>
-    <%= form_tag products_path, method: :get, class: "d-flex" do %>
-    <%= text_field_tag :search, nil, class: "form-control me-2", placeholder: "Search", aria: { label: "Search" }, id: "search_product" %>
-    <%= button_tag "Search", type: :submit, class: "btn btn-outline-success" %>
-    <% end %> 
-    <div class="row">
-        <% @products.each do |product| %>
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <%= product.name%> <br/>
-                        <%= product.price %> <br/>
-                        <%= button_to "Add to Cart", cart_items_path(product_id: product.id,format: "js"), remote: true,  data: {type: :js}%>
-                    </div>
-                </div>
+<div class="row mx-0">
+    <div class="col-md-2 px-0">
+        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+            <div class="position-sticky">
+            <div class="list-group list-group-flush mx-3 mt-2">
+                <h3>Category</h3>
+                <%= link_to 'all product', products_path%>
+                </br>
+                <% Category.all.each do |category| %>
+                    <%= link_to category.category_name, products_path + "?category_id=#{category.id}",method: :get%>
+                    </br>
+                <% end %>
             </div>
-        <% end %>
+            </div>
+        </nav>
     </div>
-</div>
-
-</div>
+    <div class="col-md-10 px-0">
+        <div class="container">
+            <%if @products.blank?%>
+                <div class="col-sm-6">
+                    <h1 style="text-align:center">There is no product available</h1>
+                </div>
+            <%else%>
+                <h1>Product Details</h1>
+                <%= form_tag products_path, method: :get, class: "d-flex" do %>
+                    <%= hidden_field_tag :category_id, @category_id %>
+                    <%= text_field_tag :search, nil, class: "form-control me-2", placeholder: "Search", aria: { label: "Search" }, id: "search_product" %>
+                    <%= button_tag "Search", type: :submit, class: "btn btn-outline-success" %>
+                <% end %> 
+                <div class="row">
+                    <% @products.each do |product| %>
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <%= product.name%> <br/>
+                                    <%= product.price %> <br/>
+                                    <%if current_user.is? :user%>
+                                        <%= button_to "Add to Cart", cart_items_path(product_id: product.id,format: "js"), remote: true,  data: {type: :js}%>
+                                    <%end%>
+                                </div>
+                            </div>
+                        </div>
+                    <% end %>
+                </div>
+            <%end%>
+        </div>
+    </div>
 </div>
 
 

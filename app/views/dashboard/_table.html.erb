@@ -1,0 +1,24 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Customer name</th>
+            <th scope="col">Email</th>
+            <th scope="col">action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @users.each do |user| %>
+            <tr>
+                <td scope="row"><%= user.first_name %></th>
+                <td><%= user.email %></td>
+                <td>
+                    <div class="button-group">
+                        <%= button_to "delete", dashboard_path(user.id), class: "btn btn-danger btn-sm", method: :delete  %>
+                        <%= button_to "show", dashboard_path(user.id), class: "btn btn-success btn-sm", method: :get  %>
+                    </div>
+                </td>
+            </tr>
+        <% end %>
+        
+    </tbody>
+</table>

@@ -28,8 +28,8 @@ class ConfirmationsController < Devise::ConfirmationsController
   #   super(resource_name, resource)
   # end
     
-    def after_confirmation_path_for(resource_name, resource)
-      sign_in(resource)
-      dashboard_index_path
-    end
+  def after_confirmation_path_for(resource_name, resource)
+    sign_in(resource)
+    dashboard_index_path
+  end
 end
