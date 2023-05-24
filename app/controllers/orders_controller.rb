@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
 
 	def index
 		flash.delete(:notice)  
-		redirect_to dashboard_index_path, alert: 'unauthorized' and return if  current_user.is? :admin
+		redirect_to dashboard_index_path, alert: 'you are unauthorized to access this page' and return if  current_user.is? :admin
 	end
 
 	def show   

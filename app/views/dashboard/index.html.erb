@@ -1,4 +1,10 @@
-<% if can? :manage, :dashboard %>
+
+<% if flash[:alert] %>
+	<div class="alert alert-danger">
+		<%= flash[:alert] %>
+	</div>
+<% end %>
+
 	<div class="container py-5 h-100">
 		<h3>Dashboard</h3>
 		<div class="row">
@@ -57,4 +63,4 @@
 			</div>
 		</div>
 	</div>
-<% end %>
+

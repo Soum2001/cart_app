@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_20_093904) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_24_090046) do
   create_table "cart_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "cart_id"
     t.integer "product_id"
@@ -66,6 +66,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_20_093904) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "price", precision: 8, scale: 2
+    t.integer "user_id"
+    t.index ["user_id"], name: "fk_rails_dee2631783"
   end
 
   create_table "roles", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -118,6 +120,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_20_093904) do
   add_foreign_key "category_products", "products"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
+  add_foreign_key "products", "users"
   add_foreign_key "user_profiles", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"

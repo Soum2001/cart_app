@@ -11,6 +11,7 @@ class User < ApplicationRecord
   validates :email, format: { with: /\A[a-z0-9а-я_.-]{4,20}@[a-zа-я_]{2,5}\.[a-zа-я]{2,5}(\.[a-zа-я]{2,5})?\z/i, message: "is not a valid email address" }
   has_one :cart, dependent: :destroy 
   has_many :orders, dependent: :destroy 
+  has_many :products
   has_many :user_roles
   has_many :roles, through: :user_roles, dependent: :destroy
   has_one  :user_profile
@@ -30,7 +31,7 @@ class User < ApplicationRecord
   def is?( requested_role )
     self.roles.first.role == requested_role.to_s
   end
-
+  
 
 end
 

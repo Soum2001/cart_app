@@ -34,7 +34,8 @@ class Ability
     if user.is? :admin
       #  can :manage, Dashboard
       can :manage, :all
-      can :access, :admin
+      #cannot :new, Product
+      cannot :new, Product
     else
       can :read, :all
     end

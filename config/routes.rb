@@ -11,7 +11,7 @@ root to: 'devise/sessions#home'
 end
 
  resources :dashboard, only: [:index, :destroy, :show]
- resources :products, only: [:index]
+ resources :products
  resources :cart, only: [:index]
  resources :cart_items, only: [:create, :update]
  resources :orders, only: [:create, :index, :show]

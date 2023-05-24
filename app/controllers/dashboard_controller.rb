@@ -9,6 +9,7 @@ class DashboardController < ApplicationController
     elsif current_user.is? :user
       authorize! :read, :dashboard
       @user = current_user
+      flash[:alert] = "you are unauthorized to access this page"
       redirect_to products_path
     else
       sign_up_path

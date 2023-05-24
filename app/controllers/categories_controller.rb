@@ -46,6 +46,7 @@ class CategoriesController < ApplicationController
     params.require(:category).permit(:category_name)
   end
 
+  # Authorization for category page
   def require_admin
     unless current_user.is? :admin
       flash[:alert] = 'You are not authorized to access this page.'
