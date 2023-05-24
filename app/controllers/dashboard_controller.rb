@@ -2,7 +2,6 @@ class DashboardController < ApplicationController
   before_action :select_all_user, only:[:index, :destroy] 
 
   def index
-    # @user = User.accessible_by(current_ability)
     if current_user.is? :admin
       authorize! :manage, :dashboard
       authorize! :access, :admin
@@ -10,6 +9,7 @@ class DashboardController < ApplicationController
     elsif current_user.is? :user
       authorize! :read, :dashboard
       @user = current_user
+      redirect_to products_path
     else
       sign_up_path
     end
@@ -18,12 +18,14 @@ class DashboardController < ApplicationController
   def show
     # view customer profile
     @user = User.find(params[:id])
+    session[:user_id] = @user.id 
+    redirect_to user_profile_index_path
   end
 
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    render partial: 'table'
+    redirect_to dashboard_index_path
   end
 
   private

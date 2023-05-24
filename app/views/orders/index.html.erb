@@ -1,29 +1,36 @@
-<% flash.each do |key, value| %>
-    <div class="alert alert-<%= key %>"><%= value %></div>
+<% if flash[:notice] %>
+	<div class="alert alert-success">
+		<%= flash[:notice] %>
+	</div>
 <% end %>
 <section style="background-color: #eee;">
-    <div class="container">
-        <h1>Orders</h1>
-        <div class="row">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Invoice number</th>
-                        <th scope="col">Total Price</th>
-                        <th scope="col">Details</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% current_user.orders.each do |order| %>
-                        <tr>
-                            <td scope="row"><%= order.invoice_number%></th>
-                            <td><%= order.total_price %></td>
-                            <td><%= link_to "Show details", order_path(order.id),method: :get%></td>
-                        </tr>
-                    <% end %>
-                </tbody>
-            </table>
-        </div> 
-    </div>
+	<div class="container">
+		<%if current_user.orders.present?%>
+			<h1>Orders</h1>
+			<div class="row">
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Invoice number</th>
+							<th scope="col">Total Price</th>
+							<th scope="col">Details</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% current_user.orders.each do |order| %>
+							<tr>
+								<td scope="row"><%= order.invoice_number%></th>
+								<td><%= order.total_price %></td>
+								<td><%= link_to "Show details", order_path(order.id),method: :get%></td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div> 
+		<%else%>
+			<h3>You have no orders to display</h3>
+		<%end%>
+	</div>
 </section>
+
 

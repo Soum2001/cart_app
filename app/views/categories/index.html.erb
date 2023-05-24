@@ -1,33 +1,32 @@
-
 <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-5">
-        <h1 class="fw-bold mb-0 text-black">Available Category</h1>
-        <h6 class="mb-0 text-muted"><%= link_to "Add", new_category_path, class: "btn btn-primary", data: { turbo_frame: "modal" } %></h6>
-    </div>
-    <div class="row">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Sl.No</th>
-                    <th scope="col">category name</th>
-                    <th scope="col">action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% @category.each do |category| %>
-                    <tr>
-                        <td scope="row"><%= category.id%></th>
-                        <td><%= category.category_name %></td>
-                        <td>
-                            <div class="button-group">
-                                <%= button_to "delete",category_path(category.id), class: "btn btn-danger btn-sm", method: :delete  %>
-                                <%= button_to "edit", edit_category_path(category.id), class: "btn btn-warning btn-sm", method: :get  %>
-                            </div>
-                        </td>
-                    </tr>
-                <% end %>
-            </tbody>
-        </table>
-    </div> 
+	<div class="d-flex justify-content-between align-items-center mb-5">
+		<h1 class="fw-bold mb-0 text-black">Available Category</h1>
+		<h6 class="mb-0 text-muted"><%= link_to "Add", new_category_path, class: "btn btn-primary", data: { turbo_frame: "modal" } %></h6>
+	</div>
+	<div class="row">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Sl.No</th>
+					<th scope="col">category name</th>
+					<th scope="col">action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% Category.all.each do |category| %>
+					<tr>
+						<td scope="row"><%= category.id%></th>
+						<td><%= category.category_name %></td>
+						<td>
+							<div class="button-group">
+								<%= button_to "delete",category_path(category.id), class: "btn btn-danger btn-sm", method: :delete  %>
+								<%= button_to "edit", edit_category_path(category.id), class: "btn btn-warning btn-sm", method: :get  %>
+							</div>
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div> 
 </div>
 

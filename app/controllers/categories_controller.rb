@@ -32,8 +32,14 @@ class CategoriesController < ApplicationController
   end
 
   def update
-    @category_update = Category.where(id: params[:id]).update(category_name: params[:category_name])
-    redirect_to categories_path
+    @category = Category.find(params[:id])
+    if @category.update(category_params)
+      flash[:success] = "Edited successfully"
+      render 'index'
+    else
+      flash[:alert] = @category.errors.full_messages
+      render 'edit'
+    end
   end
 
   def category_params

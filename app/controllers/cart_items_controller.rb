@@ -12,14 +12,14 @@ class CartItemsController < ApplicationController
       #   format.html{ redirect_to cart_index_path }
       # end
     end
-    respond_to do |format|
-      format.js
-    end
+    flash[:notice] = "added to cart"
+    redirect_to products_path
+
   end
 
   def update
-    if(params[:act]=="inc")
-        @cart_item.quantity =  @cart_item.quantity+1
+    if(params[:quantity]=="increment")
+      @cart_item.quantity =  @cart_item.quantity+1
     else
       @cart_item.quantity =  @cart_item.quantity-1
       if @cart_item.quantity==0

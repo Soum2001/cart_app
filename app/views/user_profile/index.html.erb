@@ -5,16 +5,19 @@
 				<div class="card" >
 					<div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
 						<div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
-							<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
-							alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
-							style="width: 150px; z-index: 1">
-							<%= link_to edit_user_profile_path(1), class: "btn btn-outline-dark", data: { "mdb-ripple-color": "dark" }, style: "z-index: 1;" do %>
-									Edit Profile
-							<% end %> 
+							<%= image_tag("default_user_img.jpeg",
+              alt: "Generic placeholder image",
+              class: "img-fluid img-thumbnail mt-4 mb-2",
+              style: "width: 150px; z-index: 1") %>
+							<%if current_user.is? :user%>
+								<%= link_to edit_user_profile_path(current_user.id), class: "btn btn-outline-dark", data: { "mdb-ripple-color": "dark" }, style: "z-index: 1;" do %>
+										Edit Profile
+								<% end %>
+							<%end%> 
 						</div>
 						<div class="ms-3" style="margin-top: 130px;">
 							<h5><%= @user.first_name %>&nbsp<%= @user.last_name %></h5>
-							<p>New York</p>
+							
 						</div>
 					</div>
 					<div class="p-4 text-black" style="background-color: #f8f9fa;">
@@ -40,17 +43,17 @@
 										<p class="mb-0">Email</p>
 									</div>
 									<div class="col-sm-9">
-										<p class="text-muted mb-0"><%= @user.email %></p>
+										<p class="text-muted mb-0"><%= current_user.email %></p>
 									</div>
 								</div>
-								<% if @user.user_profile.present? %>
+								
 									<hr>
 									<div class="row">
 										<div class="col-sm-3">
 											<p class="mb-0">Phone</p>
 										</div>
 										<div class="col-sm-9">
-											<p class="text-muted mb-0"><%= @user.user_profile.phone_number %></p>
+											<p class="text-muted mb-0"><%= @user.user_profile.phone_number %> </p>
 										</div>
 									</div>
 									<hr>
@@ -62,7 +65,7 @@
 											<p class="text-muted mb-0"><%=@user.user_profile.address%></p>
 										</div>
 									</div>
-								<%end%>
+								
 							</div>
 						</div>
 					</div>

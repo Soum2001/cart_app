@@ -11,6 +11,7 @@ class RegistrationsController < Devise::RegistrationsController
       if resource.valid?
         # Add role to user
         UserRole.create(user_id: resource.id, role_id: params[:user][:role_id])
+        UserProfile.create(address: "NA",phone_number: "1234567890", user_id: resource.id)
         flash[:notice] = 'Go to mail and confirm your account'
         resource.send_confirmation_instructions if resource.persisted?
         redirect_to new_user_registration_path and return
@@ -20,7 +21,7 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
   end
-  
+
   protected
   def after_sign_up_path_for(resource)
     # Add your custom logic here
@@ -32,10 +33,6 @@ class RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :email,:last_name, :dob, :password, :password_confirmation, :confirmable])
   end
   
-  def after_confirmation_path_for(resource_name, resource)
-    # Redirect to the dashboard after the user confirms their account
-    dashboard_index_path
-  end
 
   private
   def sign_up_params

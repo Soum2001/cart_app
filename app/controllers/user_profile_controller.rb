@@ -1,17 +1,36 @@
 class UserProfileController < ApplicationController
-	def create
-		@user_profile = UserProfile.find_by_user_id(current_user.id)
-		if @user_profile.present?
-			@user_profile.phone_number = params[:phone_number]
-			@user_profile.address      = params[:address]
-			@user_profile.save
-			redirect_to dashboard_index_path
+	before_action :user_params, only:[:update]
+
+	def index
+		if current_user.is? :admin
+			authorize! :manage, :dashboard
+			@user = User.find(session[:user_id])
 		else
-			UserProfile.create(phone_number: params[:phone_number],address: params[:address],user_id: current_user.id)
+			authorize! :read, :dashboard
+			@user = current_user
 		end
 	end
-
 	def edit
-		@user = UserProfile.all
+		@user = UserProfile.find_by_user_id(params[:id])
 	end
+
+	def update
+    @user_profile = UserProfile.find(params[:id])
+			if @user_profile.update(user_params)
+				@user = current_user
+				flash[:success] = "Edited successfully"
+				render 'index'
+			else
+				@user = current_user.user_profile
+				flash[:alert] = @user_profile.errors.full_messages
+      	render 'edit'
+    	end
+	end
+
+	private
+
+	def user_params
+		params.require(:user_profile).permit(:address, :phone_number)
+	end
+
 end
