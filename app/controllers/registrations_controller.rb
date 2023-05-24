@@ -10,7 +10,7 @@ class RegistrationsController < Devise::RegistrationsController
     super do |resource|
       if resource.valid?
         # Add role to user
-        role = Role.where(role: "user").first.id
+        role_id = Role.where(role: "user").first.id
         #resource.roles << role
         resource.user_roles.create(role_id: role_id)
         UserRole.create(user_id: resource.id, role_id: role_id)
@@ -18,7 +18,7 @@ class RegistrationsController < Devise::RegistrationsController
           role_id = Role.where(role: "seller").first.id
           resource.user_roles.create(role_id: role_id)
         end
-        UserProfile.create(address: "NA",phone_number: "1234567890", user_id: resource.id)
+        UserProfile.create(address: "NA",phone_number: "0123456789", user_id: resource.id)
         flash[:notice] = 'Go to mail and confirm your account'
         resource.send_confirmation_instructions if resource.persisted?
         redirect_to new_user_registration_path and return

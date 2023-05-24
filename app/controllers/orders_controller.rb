@@ -15,8 +15,8 @@ class OrdersController < ApplicationController
 		redirect_to orders_path
 	end
 
-	def index
-		flash.delete(:notice)  
+	def index 
+		@orders = Order.page(params[:page]).per(10).where(user_id: current_user.id)
 		redirect_to dashboard_index_path, alert: 'you are unauthorized to access this page' and return if  current_user.is? :admin
 	end
 

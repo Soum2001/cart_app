@@ -11,7 +11,11 @@ class ApplicationController < ActionController::Base
   private
 
   def after_sign_in_path_for(resource)
-    '/dashboard'
+    if current_user.is? :admin
+      dashboard_index_path
+    else
+      products_path
+    end
   end
 
 end
