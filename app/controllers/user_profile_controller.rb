@@ -1,5 +1,6 @@
 class UserProfileController < ApplicationController
 	before_action :user_params, only:[:update]
+	before_action :set_role, only:[:index]
 
 	def index
 		if current_user.is? :admin
@@ -8,6 +9,9 @@ class UserProfileController < ApplicationController
 		else
 			authorize! :read, :dashboard
 			@user = current_user
+			if !@role.nil?
+				@product = current_user.products
+			end
 		end
 	end
 	def edit
@@ -32,5 +36,9 @@ class UserProfileController < ApplicationController
 	def user_params
 		params.require(:user_profile).permit(:address, :phone_number)
 	end
+
+	def set_role
+    @role = current_user.roles.find_by_role("seller")
+  end
 
 end

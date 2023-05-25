@@ -1,15 +1,17 @@
 <table class="table">
 	<thead>
 		<tr>
-			<th scope="col">Customer name</th>
+			<th scope="col">Name</th>
+			<th scope="col">Type</th>
 			<th scope="col">Email</th>
 			<th scope="col">action</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody>	
 		<% @users.each do |user| %>
 			<tr>
 				<td scope="row"><%= user.first_name %></th>
+				<td><%= user.roles.pluck(:role).join(',')%></td>
 				<td><%= user.email %></td>
 				<td>
 					<div class="button-group">

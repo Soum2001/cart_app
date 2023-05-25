@@ -26,7 +26,10 @@
 				<%= f.text_field :price, class: "form-control", placeholder: "product price"%>
 			</div>
 			<br/>
-			<%= select_tag 'category', options_from_collection_for_select(Category.all,"id","category_name"),  :multiple => true, class: 'form-control'%>
+			<div class="col-auto flex-grow-1">
+				<%= f.label :Category%>
+				<%= select_tag 'category', options_from_collection_for_select(Category.all,"id","category_name"),  :multiple => true, class: 'form-control'%>
+			</div>
 			<br/>
 			<div class="col-auto", style="text-align:center">
 				<%= f.submit "add", class: "btn btn-primary btn-lg" %>

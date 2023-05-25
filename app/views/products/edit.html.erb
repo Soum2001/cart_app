@@ -1,0 +1,39 @@
+<div class="mt-4">
+	<div class="container">
+	
+	<% if flash[:notice] %>
+		<div class="alert alert-success">
+			<%= flash[:notice] %>
+		</div>
+	<% end %>
+
+	<% if flash[:alert] %>
+		<div class="alert alert-danger">
+		<% flash[:alert].each do |notice| %>
+			<%= notice %>
+			<br/>
+		<%end%>
+		</div>
+	<% end %>
+	<%= form_for(@product) do |f| %>
+		<div class="col-auto flex-grow-1">
+			<%= f.label :name %>
+			<%= f.text_field :name, class: "form-control"%>
+		</div>
+		<br/>
+		<div class="col-auto flex-grow-1">
+			<%= f.label :price %>
+			<%= f.text_field :price, class: "form-control" %>
+		</div>
+		<br/>
+		<div class="col-auto flex-grow-1">
+			<%= f.label :Category%>
+			<%= select_tag 'category', options_from_collection_for_select(Category.all,"id","category_name", @category_id), prompt: "Select a Category",:multiple => true, class: 'form-control' %>
+		</div>
+		<br/>
+		<div class="col-auto", style="text-align:center">
+			<%= f.submit "update", class: "btn btn-warning btn-lg" %>
+		</div>
+	<%end%> 
+	</div>
+</div>

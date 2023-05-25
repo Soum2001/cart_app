@@ -13,7 +13,6 @@ class RegistrationsController < Devise::RegistrationsController
         role_id = Role.where(role: "user").first.id
         #resource.roles << role
         resource.user_roles.create(role_id: role_id)
-        UserRole.create(user_id: resource.id, role_id: role_id)
         if params[:check] == "checked"
           role_id = Role.where(role: "seller").first.id
           resource.user_roles.create(role_id: role_id)

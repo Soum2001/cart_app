@@ -31,6 +31,7 @@ class DashboardController < ApplicationController
 
   private
   def select_all_user
-    @users = User.joins(:user_roles).where(user_roles: {role_id: 2})
+    role_id = Role.where(role: "user").first.id
+    @users = User.joins(:user_roles).where(user_roles: {role_id: role_id})
   end
 end
