@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_24_090046) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_29_103533) do
   create_table "cart_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "cart_id"
     t.integer "product_id"
@@ -45,12 +45,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_090046) do
 
   create_table "order_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "order_id"
-    t.integer "product_id"
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "product_name"
+    t.decimal "price", precision: 10
     t.index ["order_id"], name: "fk_rails_e3cb28f071"
-    t.index ["product_id"], name: "fk_rails_f1a29ddd47"
   end
 
   create_table "orders", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -119,7 +119,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_090046) do
   add_foreign_key "category_products", "categories"
   add_foreign_key "category_products", "products"
   add_foreign_key "order_items", "orders"
-  add_foreign_key "order_items", "products"
   add_foreign_key "products", "users"
   add_foreign_key "user_profiles", "users"
   add_foreign_key "user_roles", "roles"

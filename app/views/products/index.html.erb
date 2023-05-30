@@ -9,21 +9,7 @@
 	</div>
 <% end %>
 <div class="row mx-0">
-	<div class="col-md-2 px-0">
-		<nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
-			<div class="position-sticky">
-				<div class="list-group list-group-flush mx-3 mt-2">
-					<h3>Category</h3>
-					<%= link_to 'all product', products_path%>
-					<br/>
-					<% Category.all.each do |category| %>
-						<%= link_to category.category_name, products_path + "?category_id=#{category.id}",method: :get%>
-						<br/>
-					<% end %>
-				</div>
-			</div>
-		</nav>
-	</div>
+<%=render 'category'%>
 	<div class="col-md-10 px-0">
 		<div class="container">
 			<%if @products.blank?%>
@@ -34,7 +20,10 @@
 				<h1>Product Details</h1>
 				<% if !@role.nil? %>
 					<div class="d-flex justify-content-between align-items-center mb-5">
-						<h6 class="mb-0 text-muted"><%= link_to "Add Product", new_product_path, class: "btn btn-primary"%></h6>
+						<h6 class="mb-0 text-muted">
+							<%= link_to "Add Product", new_product_path, class: "btn btn-primary"%>
+							<%= link_to "My Products ", my_product_products_path, class: "btn btn-primary"%>
+						</h6>
 					</div>
 				<%end%>
 				<%= form_tag products_path, method: :get, class: "d-flex" do %>
@@ -44,19 +33,21 @@
 				<% end %> 
 				<br/>
 				<div class="row">
-					<% @products.each do |product| %>
-						<div class="col-sm-6">
-							<div class="card">
-								<div class="card-body">
-									<%= product.name%> <br/>
-									<%= product.price %> <br/>
-									<%if current_user.is? :user%>
-										<%= button_to "Add to Cart", cart_items_path(product_id: product.id,format: "js"), class: 'btn btn-primary btn-sm', remote: true,  data: {type: :js}%>
-									<%end%>
+					<%if current_user.is? :user%>
+						<% @products.each do |product| %>
+							<div class="col-sm-6">
+								<div class="card">
+									<div class="card-body">
+										<%= product.name%> <br/>
+										<%= product.price %> <br/>
+										<%= button_to "Add to Cart", user_cart_items_path(product_id: product.id), class: 'btn btn-primary btn-sm'%>
+									</div>
 								</div>
 							</div>
-						</div>
-					<% end %>
+						<% end %>
+						<%else%>
+						<%=render 'admin_product'%>
+					<%end%>
 					<%= paginate @products %>
 				</div>
 			<%end%>

@@ -1,4 +1,4 @@
-class CartItemsController < ApplicationController
+class User::CartItemsController < ApplicationController
   before_action :cart_items, only:[:create, :update]
 
   def create
@@ -27,7 +27,7 @@ class CartItemsController < ApplicationController
       end
     end
     @cart_item.save
-    redirect_to cart_index_path
+    redirect_to user_carts_path
   end
 
   private

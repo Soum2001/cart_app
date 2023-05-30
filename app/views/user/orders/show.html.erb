@@ -17,8 +17,8 @@
 			<tbody>
 				<% @order_items.each do |order_item| %>
 					<tr>
-						<td scope="row"><%= order_item.product.name%></th>
-						<td><%= order_item.product.price %></td>
+						<td scope="row"><%= order_item.product_name%></th>
+						<td><%= order_item.price %></td>
 						<td><%= order_item.quantity %></td>
 					</tr>
 				<% end %>

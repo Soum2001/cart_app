@@ -105,8 +105,6 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    email_validator (2.2.4)
-      activemodel
     erubi (1.12.0)
     execjs (2.8.1)
     ffi (1.15.5)
@@ -294,7 +292,6 @@ DEPENDENCIES
   capybara
   debug
   devise
-  email_validator
   font-awesome-sass
   hotwire-rails
   importmap-rails

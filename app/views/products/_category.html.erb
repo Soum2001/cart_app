@@ -1,0 +1,15 @@
+<div class="col-md-2 px-0">
+	<nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+		<div class="position-sticky">
+			<div class="list-group list-group-flush mx-3 mt-2">
+				<h3>Category</h3>
+				<%= link_to 'all product', products_path%>
+				<br/>
+				<% Category.all.each do |category| %>
+					<%= link_to category.category_name, products_path + "?category_id=#{category.id}",method: :get%>
+					<br/>
+				<% end %>
+			</div>
+		</div>
+	</nav>
+</div>

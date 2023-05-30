@@ -10,11 +10,11 @@
         </ul>
         <% if can? :manage, :dashboard %>
           <div class="d-flex">
-            <%= link_to "Category" ,categories_path, class: "nav-link text-white"%>  
+            <%= link_to "Category" ,admin_categories_path, class: "nav-link text-white"%>  
           </div>
         <%else%>
           <div class="d-flex">
-            <%= render "cart/cart" %>
+            <%= render "user/carts/cart" %>
           </div>
         <%end%>
         <div class="d-flex">
@@ -28,10 +28,10 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <% if can? :manage, :dashboard %>
-                  <li><%= link_to "Dashboard" ,dashboard_index_path, class: "dropdown-item"%></li>
+                  <li><%= link_to "Dashboard" ,admin_dashboard_index_path, class: "dropdown-item"%></li>
                 <%else%>
-                  <li><%= link_to "Profile" ,user_profile_index_path, class: "dropdown-item"%></li>
-                  <li><%= link_to "My Order" ,orders_path, class: "dropdown-item"%></li>
+                  <li><%= link_to "Profile" ,user_profiles_path, class: "dropdown-item"%></li>
+                  <li><%= link_to "My Order" ,user_orders_path, class: "dropdown-item"%></li>
                 <%end%>
                 <li><%= button_to "logout", destroy_user_session_path, method: :delete, class: "dropdown-item"%></li>
               </ul>

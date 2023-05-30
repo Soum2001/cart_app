@@ -6,16 +6,15 @@ class ApplicationController < ActionController::Base
   end
   
   rescue_from CanCan::AccessDenied do | exception |
-    redirect_to dashboard_index_path, alert: exception.message
+    redirect_to admin_dashboard_index_path, alert: exception.message
   end
   private
 
   def after_sign_in_path_for(resource)
     if current_user.is? :admin
-      dashboard_index_path
+       admin_dashboard_index_path
     else
       products_path
     end
   end
-
 end

@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_category_id, only:[:index]
-  before_action :set_role, only:[:index, :new]
+  before_action :set_role, only:[:index, :new, :my_product]
 
   def index
     if @category_id.present?
@@ -44,15 +44,19 @@ class ProductsController < ApplicationController
     @categories.each do |category|
       @product.category_products.create(category_id: category)
     end
-    redirect_to products_path
+    redirect_to my_product_products_path
   end
 
   def destroy
     @product = Product.find(params[:id])
     if @product.destroy
-      flash[:alert] = "product deleted"
+      flash[:notice] = "product deleted"
     end
-    redirect_to user_profile_index_path
+    if current_user.is? :admin
+      redirect_to products_path
+    else
+      redirect_to my_product_products_path
+    end
   end
 
   def edit
@@ -68,7 +72,24 @@ class ProductsController < ApplicationController
         @product.category_products.create(category_id: category)
       end
       flash[:notice] = "Edited successfully"
-      redirect_to user_profile_index_path
+      if current_user.is? :admin
+        redirect_to products_path
+      else
+        redirect_to my_product_products_path
+      end
+    end
+  end
+
+  def my_product
+    if @role.nil?
+      flash[:alert] = "You have no authorization to access this page"
+      redirect_to products_path
+    else
+      @products = Product.page(params[:page]).per(10).where(user_id: current_user.id)
+      if params[:search].present?
+        @searched_product = params[:search]
+        @products = Product.page(params[:page]).per(10).where("name LIKE?","%#{@searched_product}%").where(user_id: current_user.id)
+      end
     end
   end
 

@@ -10,14 +10,26 @@ devise_scope :user do
 root to: 'devise/sessions#home'
 end
 
- resources :dashboard, only: [:index, :destroy, :show]
- resources :products
- resources :cart, only: [:index]
- resources :cart_items, only: [:create, :update]
- resources :orders, only: [:create, :index, :show]
- resources :categories
- resources :user_profile
+ 
 
+
+ resources :products do
+  collection do
+    get :my_product
+  end
+end
+
+namespace :admin do
+  resources  :dashboard, only: [:index, :destroy, :show]
+  resources :categories
+end
+
+namespace :user do
+  resources :carts, only: [:index]
+  resources :cart_items, only: [:create, :update]
+  resources :orders, only: [:create, :index, :show]
+  resources :profiles
+end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

@@ -73,7 +73,6 @@ end
 
 gem 'mysql2'
 gem 'devise'
-gem 'bootstrap', '~> 5.1.3'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'kaminari'
@@ -85,4 +84,4 @@ gem 'popper_js', '~> 2.10', require: 'popper_js'
 gem 'hotwire-rails'
 gem 'jquery-rails'
 gem 'webpacker'
-gem 'email_validator'
+gem 'bootstrap', '~> 5.1.3'

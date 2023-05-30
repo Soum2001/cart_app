@@ -24,9 +24,9 @@
 														<h6 class="text-black mb-0"><%= cart_item.product.name%></h6>
 													</div>
 													<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-														<%= button_to "-", cart_item_path(product_id: cart_item.product.id, id: cart_item.id),params: {:quantity => "decrement"}, method: :patch,  data: { confirm: "Are you sure?" }, class: "btn btn-danger", :remote => true%>
+														<%= button_to "-", user_cart_item_path(product_id: cart_item.product.id, id: cart_item.id),params: {:quantity => "decrement"}, method: :patch, class: "btn btn-danger"%>
 														<input id="form1" min="0" name="quantity" value=<%= cart_item.quantity %>  type="number" class="form-control form-control-sm" style= "text-align:center" disabled/>
-														<%= button_to "+", cart_item_path(product_id: cart_item.product.id, id: cart_item.id), params: {:quantity => "increment"}, method: :patch, class: "btn btn-success", :remote => true%>
+														<%= button_to "+", user_cart_item_path(product_id: cart_item.product.id, id: cart_item.id), params: {:quantity => "increment"}, method: :patch, class: "btn btn-success"%>
 													</div>
 													<div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
 														<h6 class="mb-0"><%= cart_item.product.price * cart_item.quantity%></h6>
@@ -45,7 +45,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div style="text-align: center">
-								<%= button_to "order checkout", orders_path, method: :post, class: "btn btn-warning btn-lg"%>
+								<%= button_to "order checkout", user_orders_path, method: :post, class: "btn btn-warning btn-lg"%>
 							</div>
 						</div>
 					</div> 
