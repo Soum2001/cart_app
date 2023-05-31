@@ -24,13 +24,18 @@ class User::OrdersController < ApplicationController
 	def show   
 		order_id = params[:id]
 		# @order_items = OrderItem.where(order_id: order_id)
-		@order = Order.where(id: order_id).first
+		@order = Order.find_by(id: order_id,user_id: current_user.id)
 		# if(@order.present?)
-		if @order.blank?
-			flash[:now] = "Order items not present"
-			redirect_to user_orders_path and return
-		end
-		@order_items = @order.order_items	
+		# if @order.blank?
+		# 	flash[:now] = "Order items not present"
+		# 	redirect_to user_orders_path and return
+		# end
+		if(@order.present?)
+			@order_items = @order.order_items
+		else
+			flash[:alert] = "you are unauthorized to access this page"
+			redirect_to admin_dashboard_index_path and return
+		end	
 	end
 	
 end
