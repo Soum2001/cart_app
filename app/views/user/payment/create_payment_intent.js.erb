@@ -1,0 +1,17 @@
+$("#checkout-button").val('<%= j @price_id %>')
+var lineItemss = '<%= raw @lineItems.to_json%>'
+var lineItems = JSON.parse(lineItemss);
+var stripe = Stripe("pk_test_51NFWZvSEzSugg87njkRD8yYrJjZipKtaMSVTr2XZF1Sto6HGGq91YXfCxh7hIow9nrcenx4EWuHImTFGUunlFJMu00zKY6gjOr");
+var sessionId = document.querySelector("#checkout-button").dataset.sessionId; 
+var priceId = $("#checkout-button").val()// Access the price_id value
+stripe.redirectToCheckout({
+  sessionId: sessionId,
+  mode:'payment',
+  lineItems: lineItems,
+  successUrl: "http://localhost:3000/user/success", // Replace with your success URL
+  cancelUrl: "https://example.com/cancel" 
+	}).then((result) => {
+  // Handle any errors that occur during the redirect to the Stripe payment page
+});
+
+

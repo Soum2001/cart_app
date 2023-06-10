@@ -12,12 +12,9 @@ class Admin::CategoriesController < ApplicationController
 	def create
 		@category = Category.new(category_params)
 		if @category.save
-			respond_to do |format|
-				format.html { redirect_to admin_category_url }
-				format.turbo_stream
-			end
+			redirect_to admin_categories_path 
 		else
-			render :new, status: :unprocessable_entity
+			render :new
 		end
 	end
 
@@ -50,7 +47,7 @@ class Admin::CategoriesController < ApplicationController
 	def require_admin
 		unless current_user.is? :admin
 			flash[:alert] = 'You are not authorized to access this page.'
-			redirect_to dashboard_index_path
+			redirect_to admin_dashboard_index_path
 		end
 	end
 end

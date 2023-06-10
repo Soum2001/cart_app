@@ -30,8 +30,8 @@
 					<%= hidden_field_tag :category_id, @category_id %>
 					<%= text_field_tag :search, nil, class: "form-control me-2", placeholder: "Search", aria: { label: "Search" }, id: "search_product" %>
 					<%= button_tag "Search", type: :submit, class: "btn btn-outline-success" %>
-				<% end %> 
-				<br/>
+				<% end %> 				
+
 				<div class="row">
 					<%if current_user.is? :user%>
 						<% @products.each do |product| %>
@@ -40,7 +40,7 @@
 									<div class="card-body">
 										<%= product.name%> <br/>
 										<%= product.price %> <br/>
-										<%= button_to "Add to Cart", user_cart_items_path(product_id: product.id), class: 'btn btn-primary btn-sm'%>
+										<%= button_to "Add to Cart", user_cart_items_path(product_id: product.id), class: 'btn btn-primary btn-sm', remote: true%>
 									</div>
 								</div>
 							</div>

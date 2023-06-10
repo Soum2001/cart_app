@@ -1,0 +1,14 @@
+var cartItemId = '<%=j @cart_item.id %>';
+var quantity = '<%=j @cart_item.quantity %>';
+if (quantity>0)
+{
+	$("#quantity"+cartItemId).val("<%= j @cart_item.quantity %>");
+	$("#price"+cartItemId).html("<%= j @cart_item.product.price * @cart_item.quantity %>");
+}
+else{
+	$("#cart_item_row"+cartItemId).html("");
+}
+
+if(quantity==0){
+	window.location.reload();
+}

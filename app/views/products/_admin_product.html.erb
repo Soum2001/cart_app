@@ -23,3 +23,21 @@
 		</tbody>
 	</table>
 </div> 
+
+
+	<%
+=begin%>
+ <div class="col-md-4">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">Seller</h5>
+				<%= form_tag products_path, method: :get, class: "d-flex" do %>
+					<%= hidden_field_tag :category_id, @category_id %>
+					<%= text_field_tag :search, nil, class: "form-control me-2", placeholder: "Search", aria: { label: "Search" }, id: "search_product" %>
+					<%= button_tag "Search", type: :submit, class: "btn btn-outline-success" %>
+				<% end %> 
+			</div>
+		</div> 
+<%
+=end%>
+	</div>

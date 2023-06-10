@@ -4,26 +4,29 @@ class ProductsController < ApplicationController
 
   def index
     if @category_id.present?
-      @products = Product.page(params[:page]).per(10).joins(:category_products).where(category_products: { category_id: @category_id })
+      @products = Product.page(params[:page]).per(10).joins(:category_products).where(category_products: { category_id: @category_id }).distinct
+      # will filter product of other seller's except own product
       if !@role.nil?
         @products =  @products.where.not(products: {user_id: current_user.id}).page(params[:page]).per(10)
       end
     else
       @products = Product.page(params[:page]).per(10)
+      # will filter product of other seller's except own product
       if !@role.nil?
         @products = @products.where.not(user_id: current_user.id)
       end
     end
-
     if params[:search].present?
       @searched_product = params[:search]
       if @category_id.blank?
         @products = Product.page(params[:page]).per(10).where("name LIKE?","%#{@searched_product}%")
+        # will filter product of other seller's except own product
         if !@role.nil?
           @products = @products.where.not(user_id: current_user.id)
         end
       else
         @products = Product.page(params[:page]).per(10).joins(category_products: :category).where('products.name LIKE?',"%#{@searched_product}%").where(category_products:{category_id: @category_id})
+        # will filter product of other seller's except own product
         if !@role.nil?
           @products = @products.where.not(products: {user_id: current_user.id})
         end
@@ -33,6 +36,7 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    #authorize wheather the user is seller or not
     if @role.nil?
       authorize! :new, @product
     end

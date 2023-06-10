@@ -1,0 +1,3 @@
+<%= link_to "Cart" ,user_carts_path, class: "nav-link text-white"%>    
+<span id="item-count" style="color:yellow"><%= @count %></span>
+<span id="item-count1" style="color:yellow"><%= CartItem.where(cart_id: current_user.cart.id).count %></span>

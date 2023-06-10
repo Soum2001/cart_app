@@ -8,6 +8,9 @@
 //= require popper
 
 import 'bootstrap'
+//= require create_payment_content
+// application.js or your custom JavaScript file
 
+  
 
 

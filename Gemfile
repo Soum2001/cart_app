@@ -85,3 +85,6 @@ gem 'hotwire-rails'
 gem 'jquery-rails'
 gem 'webpacker'
 gem 'bootstrap', '~> 5.1.3'
+gem 'stripe'
+
+gem "pay", "~> 6.6"

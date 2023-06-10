@@ -51,11 +51,14 @@
       </div>
     <% end %>
 
-    <% if flash[:alert] %>
-      <div class="alert alert-danger">
-        <%= flash[:alert] %>
-      </div>
-    <% end %>
+	<% if flash[:alert] %>
+		<div class="alert alert-danger">
+      <% eval(flash[:alert]).each do |notice| %>
+        <%= notice %>
+        <br/>
+      <%end%>
+		</div>
+	<% end %>
   <!-- HTML code for your registration form -->
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-12 col-xl-11">

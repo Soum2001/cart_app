@@ -9,10 +9,10 @@
 
 	<% if flash[:alert] %>
 		<div class="alert alert-danger">
-		<% flash[:alert].each do |notice| %>
-			<%= notice %>
-			<br/>
-		<%end%>
+      <% flash[:alert].each do |notice| %>
+        <%= notice %>
+        <br/>
+      <%end%>
 		</div>
 	<% end %>
 	<%= form_for(@product) do |f| %>

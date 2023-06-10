@@ -15,7 +15,9 @@ class User < ApplicationRecord
   has_many :user_roles
   has_many :roles, through: :user_roles, dependent: :destroy
   has_one  :user_profile, dependent: :destroy 
+  pay_customer string_attributes: :stripe_attribute
   after_create :create_cart, 
+ 
 
   def create_cart
     cart = Cart.create(user_id: self.id)
@@ -31,8 +33,27 @@ class User < ApplicationRecord
   def is?( requested_role )
     self.roles.first.role == requested_role.to_s
   end
-  
 
+# app/models/user.rb
+
+
+
+  def stripe_attribute
+    {
+      address: {
+        city: pay_customer.owner.city,
+        country: pay_customer.owner.country
+      },
+      metadata: {
+        pay_customer_id: pay_customer.id,
+        user_id: id
+      }
+    }
+  end
+
+
+
+  
 end
 
 
