@@ -14,14 +14,14 @@
     <script src="https://js.stripe.com/v3"></script>
   </head>
   <body>
-      <%= render "layouts/navbar" %>
-      <div class="modal" tabindex="-1" data-controller="modal" data-action="turbo:frame-load->modal#open turbo:submit-end->modal#close">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <%= turbo_frame_tag "modal" %>
-          </div>
+    <%= render "layouts/navbar" %>
+    <div class="modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <%= turbo_frame_tag "modal" %>
         </div>
       </div>
-      <%= yield %>
+    </div>
+    <%= yield %>
   </body>
 </html>

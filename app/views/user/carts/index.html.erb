@@ -1,4 +1,10 @@
 <div class="container py-5 h-100">
+	<% if flash[:alert] %>
+	<%binding.break%>
+		<div id= "notice" class="alert alert-danger">
+			<%= flash[:alert] %>
+		</div>
+	<% end %>
 	<div class="row d-flex justify-content-center align-items-center h-100">
 		<div class="col-12">
 			<%if @cart_items.present?%>

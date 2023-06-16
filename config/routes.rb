@@ -17,6 +17,10 @@ Rails.application.routes.draw do
     collection do
       get :my_product
     end
+    collection do
+      get :add_quantity
+      patch :update_quantity
+    end
   end
   
   namespace :admin do
@@ -26,7 +30,7 @@ Rails.application.routes.draw do
   
   namespace :user do
     resources :carts, only: [:index]
-    resources :cart_items, only: [:create, :update]
+    resources :cart_items
     resources :orders, only: [:create, :index, :show]
     resources :profiles
     resources :success

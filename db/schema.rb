@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_05_112203) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_12_062827) do
   create_table "cart_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "cart_id"
     t.integer "product_id"
@@ -153,6 +153,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_112203) do
     t.datetime "updated_at", null: false
     t.decimal "price", precision: 8, scale: 2
     t.integer "user_id"
+    t.integer "quantity"
     t.index ["user_id"], name: "fk_rails_dee2631783"
   end
 

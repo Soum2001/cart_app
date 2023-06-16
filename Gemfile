@@ -84,7 +84,8 @@ gem 'popper_js', '~> 2.10', require: 'popper_js'
 gem 'hotwire-rails'
 gem 'jquery-rails'
 gem 'webpacker'
-gem 'bootstrap', '~> 5.1.3'
 gem 'stripe'
 
 gem "pay", "~> 6.6"
+gem 'stimulus-rails'
+gem 'bootstrap', '~> 5.1.3'

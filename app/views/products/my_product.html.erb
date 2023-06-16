@@ -42,6 +42,7 @@
 							<tr>
 								<th scope="col">Product Name</th>
 								<th scope="col">Price</th>
+								<th scope="col">Quantity</th>
 								<th scope="col">Action</th>
 							</tr>
 						</thead>
@@ -50,10 +51,17 @@
 								<tr>
 									<td scope="row"><%= product.name%></th>
 									<td><%= product.price %></td>
+									<td><%= product.quantity %></td>
 									<td>
 										<div class="button-group">
 											<%= button_to "delete", product_path(product.id), class: "btn btn-danger btn-sm", method: :delete  %>
 											<%= button_to "edit", edit_product_path(product.id), class: "btn btn-warning btn-sm", method: :get  %>
+											<%= link_to "add quantity", add_quantity_products_path(id: product.id), method: :get, id: "add_quantity#{product.id}", class: "btn btn-success", data: {
+											value: product.id,
+											bs_toggle: 'modal',
+											bs_target: "#exampleModal",
+											remote: true
+											} %>
 										</div>
 									</td>
 								</tr>
@@ -67,5 +75,21 @@
 	</div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add quantity</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="edit_quantity">
 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+	 </div>
+    </div>
+  </div>
+</div>
 

@@ -15,6 +15,13 @@ class User::CartItemsController < ApplicationController
     end
   end
 
+  def destroy 
+    id = params[:id]
+    item = CartItem.find(id)
+    item.destroy
+    redirect_to user_carts_path
+  end
+
   def update
     # if(params[:quantity]=="increment")
     #   @cart_item.quantity =  @cart_item.quantity+1

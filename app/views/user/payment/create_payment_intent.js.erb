@@ -1,4 +1,5 @@
 $("#checkout-button").val('<%= j @price_id %>')
+alert("<%=j flash[:notice] %>");
 var lineItemss = '<%= raw @lineItems.to_json%>'
 var lineItems = JSON.parse(lineItemss);
 var stripe = Stripe("pk_test_51NFWZvSEzSugg87njkRD8yYrJjZipKtaMSVTr2XZF1Sto6HGGq91YXfCxh7hIow9nrcenx4EWuHImTFGUunlFJMu00zKY6gjOr");

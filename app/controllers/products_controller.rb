@@ -43,12 +43,14 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.create(name: params[:product][:name], price: params[:product][:price],user_id: current_user.id)
+    binding.break
+    @product = Product.create(name: params[:product][:name], price: params[:product][:price],user_id: current_user.id,quantity: params[:product][:quantity])
     @categories = params[:category]
     @categories.each do |category|
       @product.category_products.create(category_id: category)
     end
     redirect_to my_product_products_path
+    
   end
 
   def destroy
@@ -70,18 +72,24 @@ class ProductsController < ApplicationController
 
   def update
     @product = Product.find(params[:id])
-    if @product.update(name: params[:product][:name], price: params[:product][:price],user_id: current_user.id)
-      @categories = params[:category]
-      @categories.each do |category|
-        @product.category_products.create(category_id: category)
+    if(params[:product][:quantity].nil?)
+      if @product.update(name: params[:product][:name], price: params[:product][:price],user_id: current_user.id)
+        @categories = params[:category]
+        @categories.each do |category|
+          @product.category_products.create(category_id: category)
+        end
+        flash[:notice] = "Edited successfully"
+        if current_user.is? :admin
+          redirect_to products_path
+        else
+          redirect_to my_product_products_path
+        end
       end
-      flash[:notice] = "Edited successfully"
-      if current_user.is? :admin
-        redirect_to products_path
       else
-        redirect_to my_product_products_path
+        @product.update(quantity: params[:product][:quantity])
+         flash[:notice] = "Edited successfully"
+         redirect_to my_product_products_path
       end
-    end
   end
 
   def my_product
@@ -89,12 +97,25 @@ class ProductsController < ApplicationController
       flash[:alert] = "You have no authorization to access this page"
       redirect_to products_path
     else
+      @product = Product.new
       @products = Product.page(params[:page]).per(10).where(user_id: current_user.id)
       if params[:search].present?
         @searched_product = params[:search]
         @products = Product.page(params[:page]).per(10).where("name LIKE?","%#{@searched_product}%").where(user_id: current_user.id)
       end
     end
+  end
+
+  def add_quantity
+    @id = params[:id]
+    @product = Product.find(@id)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def update_quantity
+    binding.break
   end
 
   private

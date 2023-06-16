@@ -20,6 +20,8 @@ module CartApp
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras") 
     # config/application.rb or config/environments/development.rb
+    config.assets.enabled = true
+    config.assets.paths << Rails.root.join('app', 'javascript')
 
   end
   

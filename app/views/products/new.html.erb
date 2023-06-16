@@ -27,6 +27,11 @@
 			</div>
 			<br/>
 			<div class="col-auto flex-grow-1">
+				<%= f.label :quantity %>
+				<%= f.text_field :quantity, class: "form-control", placeholder: "product quantity"%>
+			</div>
+			<br/>
+			<div class="col-auto flex-grow-1">
 				<%= f.label :Category%>
 				<%= select_tag 'category', options_from_collection_for_select(Category.all,"id","category_name"),  :multiple => true, class: 'form-control'%>
 			</div>
