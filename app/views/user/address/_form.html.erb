@@ -1,0 +1,40 @@
+<%= form_for(address, url: user_address_index_path) do |f| %>
+	<div class="col-auto flex-grow-1">
+		<%= f.label :locality %>
+		<%= f.text_field :locality, class: "form-control", placeholder: "locality"%>
+	</div>
+	<br/>
+	<div class="col-auto flex-grow-1">
+		<%= f.label :street_no %>
+		<%= f.text_field :street_no, class: "form-control", placeholder: "street no"%>
+	</div>
+	<br/>
+	<div class="col-auto flex-grow-1">
+		<%= f.label :plot_no %>
+		<%= f.text_field :plot_no, class: "form-control", placeholder: "plot no"%>
+	</div>
+	<br/>
+	<div class="col-auto flex-grow-1">
+		<%= f.label :district %>
+		<%= f.text_field :district, class: "form-control", placeholder: "district"%>
+	</div>
+	<br/>
+	<div class="col-auto flex-grow-1">
+		<%= f.label :state %>
+		<%= f.text_field :state, class: "form-control", placeholder: "state"%>
+	</div>
+	<br/>
+	<div class="col-auto flex-grow-1">
+		<%= f.label :nationality %>
+		<%= f.text_field :nationality, class: "form-control", placeholder: "nationality"%>
+	</div>
+	<br/>
+	<div class="col-auto flex-grow-1">
+		<%= f.label :pincode %>
+		<%= f.text_field :pincode, class: "form-control", placeholder: "pincode"%>
+	</div>
+	<br/>
+	<div class="col-auto flex-grow-1">
+		<%=f.submit%>
+	</div>
+<%end%> 

@@ -4,6 +4,7 @@ class OrderMailer < ApplicationMailer
         @current_user = current_user
         @order        = order
         @order_items  = order_items
+        attachments["order_#{@order.id}.pdf"] = File.read("public/order_#{@order.id}.pdf")
         mail(to: '2018ssamantaray@gmail.com', subject: 'Welcome to My Awesome Site')
     end
 end

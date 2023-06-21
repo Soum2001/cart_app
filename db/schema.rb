@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_12_062827) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_19_113933) do
   create_table "cart_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "cart_id"
     t.integer "product_id"
@@ -59,6 +59,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_12_062827) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_address_id"
+    t.index ["user_address_id"], name: "fk_rails_118f518b6c"
   end
 
   create_table "pay_charges", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -163,6 +165,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_12_062827) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_addresses", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "locality"
+    t.string "street_no"
+    t.string "plot_no"
+    t.string "district"
+    t.string "state"
+    t.string "nationality"
+    t.integer "pincode"
+    t.integer "user_id"
+    t.boolean "is_permanent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "fk_rails_2718c5b54a"
+  end
+
   create_table "user_profiles", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "phone_number"
     t.string "address"
@@ -208,11 +225,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_12_062827) do
   add_foreign_key "category_products", "categories"
   add_foreign_key "category_products", "products"
   add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "user_addresses"
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_charges", "pay_subscriptions", column: "subscription_id"
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"
   add_foreign_key "pay_subscriptions", "pay_customers", column: "customer_id"
   add_foreign_key "products", "users"
+  add_foreign_key "user_addresses", "users"
   add_foreign_key "user_profiles", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"

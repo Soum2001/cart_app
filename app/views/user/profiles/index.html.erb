@@ -15,10 +15,7 @@
 				<div class="card" >
 					<div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
 						<div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
-							<%= image_tag("default_user_img.jpeg",
-              alt: "Generic placeholder image",
-              class: "img-fluid img-thumbnail mt-4 mb-2",
-              style: "width: 150px; z-index: 1") %>
+							<%= image_tag("default_user_img.jpeg", alt: "Generic placeholder image", class: "img-fluid img-thumbnail mt-4 mb-2", style: "width: 150px; z-index: 1") %>
 							<%if current_user.is? :user%>
 								<%= link_to edit_user_profile_path(current_user.id), class: "btn btn-outline-dark", data: { "mdb-ripple-color": "dark" }, style: "z-index: 1;" do %>
 										Edit Profile
@@ -56,7 +53,6 @@
 										<p class="text-muted mb-0"><%= current_user.email %></p>
 									</div>
 								</div>
-								
 									<hr>
 									<div class="row">
 										<div class="col-sm-3">
@@ -66,16 +62,103 @@
 											<p class="text-muted mb-0"><%= @user.user_profile.phone_number %> </p>
 										</div>
 									</div>
-									<hr>
-									<div class="row">
-										<div class="col-sm-3">
-											<p class="mb-0">Address</p>
-										</div>
-										<div class="col-sm-9">
-											<p class="text-muted mb-0"><%=@user.user_profile.address%></p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<br/>
+				<div class="card" >
+					<div class="card-body p-4 text-black">
+						<div class="d-flex justify-content-between align-items-center mb-4">
+							<p class="lead fw-normal mb-0">Address</p>
+						</div>
+						<div class="card mb-4" style="background-color: #f8f9fa;">
+							<div class="card-body">
+								<%= link_to new_user_address_path, class: "btn btn-primary btn-lg", data: {
+											bs_toggle: 'modal',
+											bs_target: "#address_modal",
+											remote: true
+											},method: :get, style: "z-index: 1;" do %>
+										Add address
+								<% end %>
+								
+							<% @address.each do |address|%>
+									<div class="card mb-4" style="background-color: #dadfe4;">
+										<%if address.is_permanent%>
+											<div class="row">
+												<div class="col-sm-3" style ="  border: 2px solid green;padding: -40px;margin-left: 1103px;border-radius: 25px;width: 113px;">
+													<p class="mb-0"style="">Permanent</p>
+												</div>
+											</div>
+										<%end%>
+										<div class="card-body">
+											<div class="row">
+												<div class="col-sm-3">
+													<p class="mb-0">Locality</p>
+												</div>
+												<div class="col-sm-9">
+													<p class="text-muted mb-0"><%= address.locality %></p>
+												</div>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-sm-3">
+													<p class="mb-0">Street No</p>
+												</div>
+												<div class="col-sm-9">
+													<p class="text-muted mb-0"><%= address.street_no %></p>
+												</div>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-sm-3">
+													<p class="mb-0">Plot No</p>
+												</div>
+												<div class="col-sm-9">
+													<p class="text-muted mb-0"><%= address.plot_no %> </p>
+												</div>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-sm-3">
+													<p class="mb-0">District</p>
+												</div>
+												<div class="col-sm-9">
+													<p class="text-muted mb-0"><%= address.district %></p>
+												</div>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-sm-3">
+													<p class="mb-0">State</p>
+												</div>
+												<div class="col-sm-9">
+													<p class="text-muted mb-0"><%= address.state %></p>
+												</div>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-sm-3">
+													<p class="mb-0">Nationality</p>
+												</div>
+												<div class="col-sm-9">
+													<p class="text-muted mb-0"><%= address.nationality %></p>
+												</div>
+											</div>
+											<hr>
+											<div class="row">
+												<div class="col-sm-3">
+													<p class="mb-0">Pincode</p>
+												</div>
+												<div class="col-sm-9">
+													<p class="text-muted mb-0"><%= address.pincode %></p>
+												</div>
+											</div>
 										</div>
 									</div>
-							</div>
+							<%end%>
+							</div>						
 						</div>
 					</div>
 				</div>
@@ -84,3 +167,20 @@
 		<br/>
 	</div>
 </section>
+
+<div class="modal fade" id="address_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add quantity</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="add_address">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+	 </div>
+    </div>
+  </div>
+</div>

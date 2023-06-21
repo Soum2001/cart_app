@@ -9,6 +9,8 @@ class User::ProfilesController < ApplicationController
 		else
 			authorize! :read, :dashboard
 			@user = current_user
+			@address = UserAddress.where(user_id: current_user.id)
+			
 		end
 	end
 

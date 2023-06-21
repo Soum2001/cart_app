@@ -89,3 +89,5 @@ gem 'stripe'
 gem "pay", "~> 6.6"
 gem 'stimulus-rails'
 gem 'bootstrap', '~> 5.1.3'
+gem 'prawn'
+gem 'prawn-table'

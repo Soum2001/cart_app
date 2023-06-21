@@ -8,3 +8,8 @@
   background-color: white;
   border: none;
 }
+.custom-radio-button {
+  float: right;
+  margin-top: -173px;
+  transform: scale(2);
+}

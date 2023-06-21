@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     resources :orders, only: [:create, :index, :show]
     resources :profiles
     resources :success
+    resources :address, only: [:new, :create, :update]
     resources :payment do
       collection do
         get :create_payment_intent
