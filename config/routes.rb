@@ -10,9 +10,6 @@ Rails.application.routes.draw do
   root to: 'devise/sessions#home'
   end
   
-   
-  
-  
    resources :products do
     collection do
       get :my_product
@@ -31,7 +28,14 @@ Rails.application.routes.draw do
   namespace :user do
     resources :carts, only: [:index]
     resources :cart_items
-    resources :orders, only: [:create, :index, :show]
+    resources :orders, only: [:create, :index, :show] do
+      collection do
+        get :user_order_details
+      end
+      collection do
+        get :order_status
+      end
+    end
     resources :profiles
     resources :success
     resources :address, only: [:new, :create, :update]

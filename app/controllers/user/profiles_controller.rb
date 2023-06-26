@@ -10,7 +10,6 @@ class User::ProfilesController < ApplicationController
 			authorize! :read, :dashboard
 			@user = current_user
 			@address = UserAddress.where(user_id: current_user.id)
-			
 		end
 	end
 
@@ -30,6 +29,8 @@ class User::ProfilesController < ApplicationController
 			render 'edit'
 		end
 	end
+
+
 
 	private
 

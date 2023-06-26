@@ -1,0 +1,49 @@
+<% if flash[:notice] %>
+	<div class="alert alert-success"">
+		<%= flash[:notice] %>
+	</div>
+<% end %>
+<div class="container">
+	<h1>User's Order Items</h1>
+	<div class="row">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">User Name</th>
+					<th scope="col">Product Name</th>
+					<th scope="col">Quantity</th>
+                    <th scope="col">Address</th>
+                     <th scope="col">Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @user_order_details.each do |user| %>
+					<tr>
+						<td scope="row"><%= user.first_name%> <%= user.last_name%></th>
+						<td><%= user.product_name %></td>
+                        <td><%= user.quantity %></td>
+                        <td>plot-no:<%= user.plot_no %>,street-no:<%= user.street_no%>,
+                        <%= user.locality%>,<%= user.district%>,
+                        <%= user.state%>,<%= user.nationality %>,<%= user.pincode %></td>
+						<td>
+						<%= select_tag(
+								'status',
+								options_for_select(
+									OrderStatus.statuses.values	
+								),
+								prompt: "select status",
+								class: 'input-block-level chzn-select hiring_stage_dropdown',
+								id: 'status_dropdown',
+								data: {
+									remote: true,
+									url: "/user/orders/order_status?user_id=#{user.id}&product_id=#{user.product_id}",
+									method: 'get',
+								}
+								) %>
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div> 
+</div>

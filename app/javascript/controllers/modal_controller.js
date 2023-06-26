@@ -1,6 +1,5 @@
 import { Controller} from "./node_modules/@hotwired/stimulus"
 import * as bootstrap from "bootstrap"
-console.log('hi');
 export default class extends Controller {
   connect() {
     this.modal = new bootstrap.Modal(this.element)

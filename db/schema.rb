@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_19_113933) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_26_080540) do
   create_table "cart_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "cart_id"
     t.integer "product_id"
@@ -50,7 +50,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_113933) do
     t.datetime "updated_at", null: false
     t.string "product_name"
     t.decimal "price", precision: 10
+    t.integer "product_id"
     t.index ["order_id"], name: "fk_rails_e3cb28f071"
+    t.index ["product_id"], name: "fk_rails_f1a29ddd47"
+  end
+
+  create_table "order_statuses", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "orders", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -198,6 +206,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_113933) do
     t.index ["user_id"], name: "fk_rails_318345354e"
   end
 
+  create_table "user_statuses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "status_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "product_id"
+    t.index ["product_id"], name: "fk_rails_9990275dc0"
+    t.index ["status_id"], name: "fk_rails_351517c602"
+    t.index ["user_id"], name: "fk_rails_2178592333"
+  end
+
   create_table "users", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -225,6 +244,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_113933) do
   add_foreign_key "category_products", "categories"
   add_foreign_key "category_products", "products"
   add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
   add_foreign_key "orders", "user_addresses"
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_charges", "pay_subscriptions", column: "subscription_id"
@@ -235,4 +255,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_113933) do
   add_foreign_key "user_profiles", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
+  add_foreign_key "user_statuses", "order_statuses", column: "status_id"
+  add_foreign_key "user_statuses", "products"
+  add_foreign_key "user_statuses", "users"
 end

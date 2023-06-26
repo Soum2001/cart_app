@@ -5,28 +5,56 @@
 <% end %>
 <div class="container">
 	<h1>Order Items</h1>
-	<div class="row">
-		<table class="table">
-			<thead>
-				<tr>
-					<th scope="col">Product Name</th>
-					<th scope="col">Price</th>
-					<th scope="col">Quantity</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @order_items.each do |order_item| %>
-					<tr>
-						<td scope="row"><%= order_item.product_name%></th>
-						<td><%= order_item.price %></td>
-						<td><%= order_item.quantity %></td>
-					</tr>
-				<% end %>
-				<tr>
-					<th colspan="1">Total Price:</th>
-					<td ><%= @order.total_price%></td>
-				</tr>
-			</tbody>
-		</table>
-	</div> 
+<section style="background-color: #eee;">
+  <div class="container py-5">
+  	<% @order_items.each do |order_item| %>
+			<div class="row justify-content-center mb-3">
+				<div class="col-md-12 col-xl-10">
+					<div class="card shadow-0 border rounded-3">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+									<div class="bg-image hover-zoom ripple rounded ripple-surface">
+										<img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp"
+											class="w-100" />
+										<a href="#!">
+											<div class="hover-overlay">
+											<div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+											</div>
+										</a>
+									</div>
+								</div>
+								<div class="col-md-6 col-lg-6 col-xl-6">
+									<h5><%= order_item.product_name%></h5>
+									<div class="mt-1 mb-0 text-muted small">
+									<span>price: <%= order_item.price %>  </span>
+									</div>
+									<div class="mt-1 mb-0 text-muted small">
+									<span>Quantity: <%= order_item.quantity %></span>
+									</div>
+									<br/>
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="horizontal-timeline">
+												<ul class="list-inline items d-flex justify-content-between">
+													<%= render "user_order_status", locals: {status: "pending", is_completed: is_complete(0, order_item.product_id)}%>
+													<%= render "user_order_status", locals: {status: "confirmed", is_completed: is_complete(1, order_item.product_id)}%>
+													<%= render "user_order_status", locals: {status: "shipped", is_completed: is_complete(2, order_item.product_id)}%>
+													<%= render "user_order_status", locals: {status: "delivered", is_completed: is_complete(3, order_item.product_id)}%>
+													<%= render "user_order_status", locals: {status: "cancelled", is_completed: is_complete(4, order_item.product_id)}%>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	<% end %>
+  </div>
+</section>
 </div>
+

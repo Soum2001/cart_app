@@ -3,6 +3,7 @@ class ProductsController < ApplicationController
   before_action :set_role, only:[:index, :new, :my_product]
 
   def index
+
     if @category_id.present?
       @products = Product.page(params[:page]).per(10).joins(:category_products).where(category_products: { category_id: @category_id }).distinct
       # will filter product of other seller's except own product
@@ -32,6 +33,7 @@ class ProductsController < ApplicationController
         end
       end
     end
+   
   end
 
   def new
@@ -43,7 +45,6 @@ class ProductsController < ApplicationController
   end
 
   def create
-    binding.break
     @product = Product.create(name: params[:product][:name], price: params[:product][:price],user_id: current_user.id,quantity: params[:product][:quantity])
     @categories = params[:category]
     @categories.each do |category|

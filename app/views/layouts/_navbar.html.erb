@@ -26,9 +26,13 @@
               <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 My Account
               </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">            
                 <% if can? :manage, :dashboard %>
                   <li><%= link_to "Dashboard" ,admin_dashboard_index_path, class: "dropdown-item"%></li>
+                <%elsif !@role.nil?%>
+                  <li><%= link_to "User's Order" ,user_order_details_user_orders_path, class: "dropdown-item"%></li>
+                  <li><%= link_to "Profile" ,user_profiles_path, class: "dropdown-item"%></li>
+                  <li><%= link_to "My Order" ,user_orders_path, class: "dropdown-item"%></li>
                 <%else%>
                   <li><%= link_to "Profile" ,user_profiles_path, class: "dropdown-item"%></li>
                   <li><%= link_to "My Order" ,user_orders_path, class: "dropdown-item"%></li>

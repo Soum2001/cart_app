@@ -1,0 +1,7 @@
+<li class="list-inline-item items-list">
+  <% if locals[:is_completed]%>
+    <p class="py-1 px-2 rounded" style="background-color: orange"><%= locals[:status] %></p>
+  <% else %>
+    <p class="py-1 px-2 rounded" ><%= locals[:status] %></p>
+  <% end %>
+</li>
