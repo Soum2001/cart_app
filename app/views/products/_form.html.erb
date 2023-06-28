@@ -1,10 +1,10 @@
-        <%= form_for(@product) do |f| %>
-			<div class="col-auto flex-grow-1">
-				<%= f.label :quantity %>
-				<%= f.text_field :quantity, class: "form-control", placeholder: "quantity"%>
-			</div>
-            <br/>
-            <div class="col-auto flex-grow-1">
-               <%=f.submit%>
-            </div>
-        <%end%> 
+<%= form_for(@product) do |f| %>
+  <div class="col-auto flex-grow-1">
+    <%= f.label :quantity %>
+    <%= f.text_field :quantity, class: "form-control", placeholder: "quantity"%>
+  </div>
+  <br/>
+  <div class="col-auto flex-grow-1">
+    <%=f.submit%>
+  </div>
+<%end%> 

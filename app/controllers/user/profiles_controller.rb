@@ -30,8 +30,6 @@ class User::ProfilesController < ApplicationController
 		end
 	end
 
-
-
 	private
 
 	def user_params

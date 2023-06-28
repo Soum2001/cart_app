@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :products, dependent: :destroy 
   has_many :user_addresses, dependent: :destroy 
   has_many :user_roles
+  has_many :user_statuses
   has_many :roles, through: :user_roles, dependent: :destroy
   has_one  :user_profile, dependent: :destroy 
   pay_customer string_attributes: :stripe_attribute

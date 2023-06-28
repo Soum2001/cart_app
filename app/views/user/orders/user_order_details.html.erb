@@ -12,26 +12,38 @@
 					<th scope="col">User Name</th>
 					<th scope="col">Product Name</th>
 					<th scope="col">Quantity</th>
-                    <th scope="col">Address</th>
-                     <th scope="col">Status</th>
+          <th scope="col">Address</th>
+          <th scope="col">Status</th>
 				</tr>
 			</thead>
 			<tbody>
 				<% @user_order_details.each do |user| %>
+ 					<%
+						user_status = UserStatus.find_by(product_id: user.product_id, user_id: user.id)
+						status_id = user_status.status_id
+						i=0
+						status = []
+						while i	<= status_id
+							status << OrderStatus.statuses[i]
+							i+=1
+						end
+					%> 
 					<tr>
 						<td scope="row"><%= user.first_name%> <%= user.last_name%></th>
 						<td><%= user.product_name %></td>
-                        <td><%= user.quantity %></td>
-                        <td>plot-no:<%= user.plot_no %>,street-no:<%= user.street_no%>,
-                        <%= user.locality%>,<%= user.district%>,
-                        <%= user.state%>,<%= user.nationality %>,<%= user.pincode %></td>
+						<td><%= user.quantity %></td>
+						<td>plot-no:<%= user.plot_no %>,street-no:<%= user.street_no%>,
+						<%= user.locality%>,<%= user.district%>,
+						<%= user.state%>,<%= user.nationality %>,<%= user.pincode %></td>
 						<td>
 						<%= select_tag(
 								'status',
 								options_for_select(
-									OrderStatus.statuses.values	
+									OrderStatus.statuses.values,
+									disabled: status
+									
 								),
-								prompt: "select status",
+						
 								class: 'input-block-level chzn-select hiring_stage_dropdown',
 								id: 'status_dropdown',
 								data: {

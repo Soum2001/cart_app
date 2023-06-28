@@ -1,0 +1,11 @@
+
+var status_id = '<%=j @track_data[0].status_id%>';
+
+var data = '<%=j @status %>'
+console.log('<%=j @status %>')
+alert('<%=j @status[0] %>')
+
+data.forEach(entry => {
+  $("#status_dropdown option:contains( " + entry + ")").attr("disabled", "disabled");
+});
+

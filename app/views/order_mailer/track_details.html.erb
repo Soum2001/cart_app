@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi <%=@user.first_name%> Welcome to Ekart</h1>
+    <p>Your order have been <%=OrderStatus.statuses[@track_id[0].status_id] %> for this .<br>
+     <% @address = @user.user_addresses.where(is_permanent: 1)%>
+     <%= @address[0].plot_no%>,<%=@address[0].street_no%>,<%=@address[0].locality%>,<%=@address[0].district%>,
+     <%=@address[0].state%>,<%=@address[0].nationality%>,<%=@address[0].pincode%> Address
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>
