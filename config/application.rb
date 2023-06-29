@@ -22,7 +22,7 @@ module CartApp
     # config/application.rb or config/environments/development.rb
     config.assets.enabled = true
     config.assets.paths << Rails.root.join('app', 'javascript')
-
+    config.active_job.queue_adapter = :sidekiq
   end
   
 end

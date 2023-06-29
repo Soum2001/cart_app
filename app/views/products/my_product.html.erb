@@ -69,6 +69,13 @@
 						</tbody>
 					</table>
 				</div> 
+				<div class="row">
+					<div class="col-md-12">
+						<div style="text-align: center">
+							<%= button_to "back", products_path, method: :get, class: "btn btn-warning btn-lg" %>
+						</div>
+					</div>
+				</div>
 				<%= paginate @products %>
 			<%end%>
 		</div>

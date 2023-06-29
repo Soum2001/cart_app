@@ -1,5 +1,4 @@
 class User::SuccessController < ApplicationController
-	
 	def index
 		@total_price = 0
 		@address_id = UserAddress.where(is_permanent: 1,user_id: current_user.id)
@@ -30,7 +29,7 @@ class User::SuccessController < ApplicationController
 			pdf.text "Thanks for purchasing from Ekart", size: 9
 		end
 		pdf.move_up 20
-	  	pdf.bounding_box([pdf.bounds.width / 2, pdf.cursor], width: pdf.bounds.width / 2) do
+	  pdf.bounding_box([pdf.bounds.width / 2, pdf.cursor], width: pdf.bounds.width / 2) do
 			pdf.draw_text "shipped to",at: [80, pdf.cursor]
 			address_data = [
 				["plot no:", "#{@address_id[0].plot_no}"],
@@ -54,7 +53,8 @@ class User::SuccessController < ApplicationController
 		pdf.move_down 50
 		pdf.text " Thank You"
 		pdf.render_file(Rails.root.join('public', "order_#{@order.id}.pdf"))	
-		OrderMailer.order_checkout(current_user,@order,@order_items).deliver_now
+		SendMailJob.perform_later(current_user, @order, @order_items)
+		# OrderMailer.order_checkout(current_user,@order,@order_items).deliver_later
 		@cart_item_quantity = CartItem.where(cart_id: current_user.cart.id).count
 		@cart_items.delete_all
 	end

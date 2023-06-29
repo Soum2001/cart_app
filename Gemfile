@@ -91,3 +91,5 @@ gem 'stimulus-rails'
 gem 'bootstrap', '~> 5.1.3'
 gem 'prawn'
 gem 'prawn-table'
+
+gem 'sidekiq'
