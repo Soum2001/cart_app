@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_26_080540) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_29_103620) do
   create_table "cart_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "cart_id"
     t.integer "product_id"
@@ -213,7 +213,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_26_080540) do
     t.datetime "updated_at", null: false
     t.integer "product_id"
     t.index ["product_id"], name: "fk_rails_9990275dc0"
-    t.index ["status_id"], name: "fk_rails_351517c602"
     t.index ["user_id"], name: "fk_rails_2178592333"
   end
 
@@ -234,8 +233,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_26_080540) do
     t.string "unconfirmed_email"
     t.string "city"
     t.string "country"
+    t.integer "failed_attempts", default: 0
+    t.string "unlock_token"
+    t.datetime "locked_at"
+    t.boolean "deactivated"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
   add_foreign_key "cart_items", "carts"
@@ -255,7 +264,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_26_080540) do
   add_foreign_key "user_profiles", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
-  add_foreign_key "user_statuses", "order_statuses", column: "status_id"
   add_foreign_key "user_statuses", "products"
   add_foreign_key "user_statuses", "users"
 end

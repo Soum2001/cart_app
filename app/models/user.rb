@@ -3,12 +3,13 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable
+         :recoverable, :rememberable, :validatable, :confirmable, :lockable, :timeoutable, :trackable
+
   validates :first_name, presence: true, format: { with: /\A[A-Za-z]+\z/, message: "should only contain alphabetic characters" }
   validates :last_name, presence: true, format: { with: /\A[A-Za-z]+\z/, message: "should only contain alphabetic characters" }
   validates :dob,  presence: true
   validate :date_of_birth_in_the_past
-  validates :email, format: { with: /\A[a-z0-9а-я_.-]{4,20}@[a-zа-я_]{2,5}\.[a-zа-я]{2,5}(\.[a-zа-я]{2,5})?\z/i, message: "is not a valid email address" }
+  #validates :email, format: { with: /\A[a-z0-9а-я_.-]{4,20}@[a-zа-я_]{2,5}\.[a-zа-я]{2,5}(\.[a-zа-я]{2,5})?\z/i, message: "is not a valid email address" }
   has_one :cart, dependent: :destroy 
   has_many :orders, dependent: :destroy 
   has_many :products, dependent: :destroy 
@@ -37,9 +38,6 @@ class User < ApplicationRecord
   end
 
 # app/models/user.rb
-
-
-
   def stripe_attribute
     {
       address: {
@@ -55,7 +53,14 @@ class User < ApplicationRecord
 
 
 
-  
+  # def check_last_sign_in_date
+  #   # Replace `forbidden_days` with the number of days you want to enforce
+  #   forbidden_days = 
+
+  #   if last_sign_in_at && (last_sign_in_at + forbidden_days.days) < Date.current
+  #     errors.add(:base, "You are forbidden to sign in after #{forbidden_days} days of inactivity.")
+  #   end
+  # end
 end
 
 

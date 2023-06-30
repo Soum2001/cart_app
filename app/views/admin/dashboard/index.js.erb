@@ -1,0 +1,13 @@
+  $(document).ready(function() {
+    $('#user_table').dataTable({
+    'iDisplayLength': 2,//Set Row Per Page
+    "bFilter": false,//Remove Search
+    "bPaginate" : false,//Remove Pagination
+    "bInfo": false,//Remove Page Info
+    "bLengthChange":false,//Show per Page Dropdown Remove
+    "columnDefs": [ { "targets": 0, "orderable": false } ],//Remove Colum Orderable(Here Col 0 Remove)
+    "aoColumns": [{ "asSorting": [] },{ "asSorting": [ "asc" ] },{ "asSorting": [ "desc", "asc" ] },{ "asSorting": [ "desc" ] },null],//Set Colum Order By ASC Or DSC
+    "sPaginationType": "full_numbers"//Full Pagination
+    });
+    $('#add_address').html("<%= escape_javascript render('form', user: @users) %>")
+  });

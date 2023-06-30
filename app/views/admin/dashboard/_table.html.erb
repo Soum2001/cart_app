@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table" id="user_table">
 	<thead>
 		<tr>
 			<th scope="col">Name</th>
@@ -9,17 +9,31 @@
 	</thead>
 	<tbody>	
 		<% @users.each do |user| %>
-			<tr>
-				<td scope="row"><%= user.first_name %></th>
-				<td><%= user.roles.pluck(:role).join(',')%></td>
-				<td><%= user.email %></td>
-				<td>
-					<div class="button-group">
-						<%= button_to "delete", admin_dashboard_path(user.id), class: "btn btn-danger btn-sm", method: :delete  %>
-						<%= button_to "show", admin_dashboard_path(user.id), class: "btn btn-success btn-sm", method: :get  %>
-					</div>
-				</td>
-			</tr>
+			<%if user.deactivated%>
+				<tr style="background-color:#F2F3F4 ">
+					<td scope="row"><%= user.first_name %></th>
+					<td><%= user.roles.pluck(:role).join(',')%></td>
+					<td><%= user.email %></td>
+					<td>
+						<div class="button-group">
+							<%= button_to "delete", admin_dashboard_path(user.id), class: "btn btn-danger btn-sm", method: :delete  %>
+							<%= button_to "show", admin_dashboard_path(user.id), class: "btn btn-success btn-sm", method: :get  %>
+						</div>
+					</td>
+				</tr>
+			<%else%>
+				<tr >
+					<td scope="row"><%= user.first_name %></th>
+					<td><%= user.roles.pluck(:role).join(',')%></td>
+					<td><%= user.email %></td>
+					<td>
+						<div class="button-group">
+							<%= button_to "delete", admin_dashboard_path(user.id), class: "btn btn-danger btn-sm", method: :delete  %>
+							<%= button_to "show", admin_dashboard_path(user.id), class: "btn btn-success btn-sm", method: :get  %>
+						</div>
+					</td>
+				</tr>
+			<%end%>
 		<% end %> 
 	</tbody>
 </table>

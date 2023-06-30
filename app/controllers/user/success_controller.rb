@@ -1,4 +1,5 @@
 class User::SuccessController < ApplicationController
+	include Sidekiq::Worker
 	def index
 		@total_price = 0
 		@address_id = UserAddress.where(is_permanent: 1,user_id: current_user.id)
@@ -54,7 +55,7 @@ class User::SuccessController < ApplicationController
 		pdf.text " Thank You"
 		pdf.render_file(Rails.root.join('public', "order_#{@order.id}.pdf"))	
 		SendMailJob.perform_later(current_user, @order, @order_items)
-		# OrderMailer.order_checkout(current_user,@order,@order_items).deliver_later
+		#OrderMailer.order_checkout(current_user,@order,@order_items).deliver_now
 		@cart_item_quantity = CartItem.where(cart_id: current_user.cart.id).count
 		@cart_items.delete_all
 	end
