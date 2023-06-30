@@ -3,8 +3,8 @@
 
 //= require jquery
 //= require jquery_ujs
-//= require dataTables/jquery.dataTables
-//= require_tree .
+
+//= require_tree 
 //= require popper
 
 // application.js or your custom JavaScript file

@@ -3,7 +3,7 @@ class User::AddressController < ApplicationController
 		@address = UserAddress.new
 		respond_to do |format|
 				format.js
-			end
+		end
 	end
 	def create
 		@address = UserAddress.new(locality: params[:user_address][:locality], street_no: params[:user_address][:street_no],
