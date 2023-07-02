@@ -13,17 +13,23 @@
 				</tr>
 			</thead>
 			<tbody>
+			<% i = 1%>
 				<% Category.all.each do |category| %>
 					<tr>
-						<td scope="row"><%= category.id%></th>
+						<td scope="row"><%= i %></th>
 						<td><%= category.category_name %></td>
 						<td>
 							<div class="button-group">
-								<%= button_to "delete",admin_category_path(category.id), class: "btn btn-danger btn-sm", method: :delete  %>
-								<%= button_to "edit", edit_admin_category_path(category.id), class: "btn btn-warning btn-sm", method: :get  %>
+								<%= button_to admin_category_path(category.id), method: :delete, class: "btn btn-danger btn-sm" do %>
+  								<i class="fas fa-trash"></i>
+								<% end %>
+								<%= button_to edit_admin_category_path(category.id), method: :get, class: "btn btn-warning btn-sm" do %>
+  								<i class="fas fa-edit"></i> 
+								<% end %>
 							</div>
 						</td>
 					</tr>
+					<%i =i+1%>
 				<% end %>
 			</tbody>
 		</table>

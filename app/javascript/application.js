@@ -7,6 +7,7 @@
 //= require_tree 
 //= require popper
 
+
 // application.js or your custom JavaScript file
 
 

@@ -2,17 +2,25 @@ class User::CartItemsController < ApplicationController
   before_action :cart_items, only:[:create, :update]
 
   def create
-    @cart_id = current_user.cart.id
-    if @cart_item 
-      @cart_item.update(quantity: @cart_item.quantity+1)
+    @product = Product.find(params[:product_id])
+    binding.break
+    if(@product.quantity > 0)
+      @cart_id = current_user.cart.id
+      if @cart_item 
+        @cart_item.update(quantity: @cart_item.quantity+1)
+      else
+        @cart_item = CartItem.create(cart_id: @cart_id, product_id: params[:product_id],quantity: 1)
+        #flash[:notice] = 'New product added'
+      end
+      @count = CartItem.where(cart_id: @cart_id).count
+      flash[:message] = "Item added"
     else
-      @cart_item = CartItem.create(cart_id: @cart_id, product_id: params[:product_id],quantity: 1)
-      #flash[:notice] = 'New product added'
+      flash[:message] = "This product in temporarily unavailable"
     end
-    @count = CartItem.where(cart_id: @cart_id).count
     respond_to do |format|
-       format.js
+      format.js
     end
+
   end
 
   def destroy 

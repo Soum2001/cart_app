@@ -8,6 +8,7 @@ class Admin::DashboardController < ApplicationController
 			if current_user.is? :admin
 				authorize! :manage, :dashboard
 				authorize! :access, :admin
+				
 				# Additional logic for admin dashboard
 			elsif current_user.is? :user
 				authorize! :read, :dashboard
@@ -24,7 +25,8 @@ class Admin::DashboardController < ApplicationController
 		# view customer profile
 		@user = User.find(params[:id])
 		session[:user_id] = @user.id 
-		redirect_to user_profiles_path
+		@address = UserAddress.where(user_id: @user.id)
+		render 'user/profiles/index'
 	end
 
 	def destroy

@@ -82,8 +82,7 @@
 											},method: :get, style: "z-index: 1;" do %>
 										Add address
 								<% end %>
-								
-							<% @address.each do |address|%>
+								<% @address.each do |address|%>
 									<div class="card mb-4" style="background-color: #dadfe4;">
 										<%if address.is_permanent%>
 											<div class="row">
@@ -157,7 +156,7 @@
 											</div>
 										</div>
 									</div>
-							<%end%>
+								<%end%>
 							</div>						
 						</div>
 					</div>

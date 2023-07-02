@@ -54,14 +54,23 @@
 									<td><%= product.quantity %></td>
 									<td>
 										<div class="button-group">
-											<%= button_to "delete", product_path(product.id), class: "btn btn-danger btn-sm", method: :delete  %>
-											<%= button_to "edit", edit_product_path(product.id), class: "btn btn-warning btn-sm", method: :get  %>
-											<%= link_to "add quantity", add_quantity_products_path(id: product.id), method: :get, id: "add_quantity#{product.id}", class: "btn btn-success", data: {
-											value: product.id,
-											bs_toggle: 'modal',
-											bs_target: "#exampleModal",
-											remote: true
-											} %>
+											<%= link_to product_path(product.id), method: :delete, class: "btn btn-danger btn-sm delete", title: "delete" do %>
+												<i class="fa fa-trash" aria-hidden="true"></i> 
+											<% end %>
+											
+											<%= link_to edit_product_path(product.id), method: :get, class: "btn btn-warning btn-sm edit", title: "Edit" do %>
+												<i class="fa fa-edit" aria-hidden="true"></i> 
+											<% end %>
+											<%= link_to add_quantity_products_path(id: product.id), method: :get, id: "add_quantity#{product.id}", class: "btn btn-success add_quantity", 
+											title: "add quantity",
+											data: {
+												value: product.id,
+												bs_toggle: 'modal',
+												bs_target: "#exampleModal",
+												remote: true
+											} do %>
+												<i class="fas fa-sort-amount-up"></i>
+											<% end %>
 										</div>
 									</td>
 								</tr>
@@ -72,7 +81,10 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div style="text-align: center">
-							<%= button_to "back", products_path, method: :get, class: "btn btn-warning btn-lg" %>
+						<%= link_to products_path, class: "btn btn-warning btn-lg" do %>
+  						<i class="fa fa-arrow-left"></i> Back
+						<% end %>
+							
 						</div>
 					</div>
 				</div>
@@ -100,3 +112,14 @@
   </div>
 </div>
 
+<script>
+	$(".delete").hover(function(){
+		$(".delete").tooltip()
+  })
+	$(".edit").hover(function(){
+		$(".edit").tooltip()
+  })
+	$(".add_quantity").hover(function(){
+		$(".add_quantity").tooltip()
+  })
+</script>

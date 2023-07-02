@@ -40,8 +40,10 @@
 									<div class="card-body">
 										<%= product.name%> <br/>
 										<%= product.price %> <br/>
-										<%= button_to "Add to Cart", user_cart_items_path(product_id: product.id), class: 'btn btn-primary btn-sm', remote: true%>
-									</div>
+										<%= button_to user_cart_items_path(product_id: product.id), class: 'btn btn-primary btn-sm add_to_cart', title: "add to cart", remote: true do %>
+  										<i class="fa fa-shopping-cart"></i> 
+										<% end %>
+										</div>
 								</div>
 							</div>
 						<% end %>
@@ -54,6 +56,13 @@
 		</div>
 	</div>
 </div>
+<script>
+	$(".add_to_cart").hover(function(){
+		$(".add_to_cart").tooltip({
+		position: { my: "left+15 center", at: "right center"}
+		})
+  })
+</script>
 
 
 
