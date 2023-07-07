@@ -92,4 +92,6 @@ gem 'bootstrap', '~> 5.1.3'
 gem 'prawn'
 gem 'prawn-table'
 
-gem 'sidekiq'
+gem 'omniauth-facebook'
+gem 'omniauth'
+gem 'omniauth-rails_csrf_protection'

@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   controllers: {
     registrations: 'registrations',
     confirmations: 'confirmations',
-    sessions:      'sessions'
+    sessions:      'sessions',
+    omniauth_callbacks: 'omniauth_callbacks'
   } 
-  
   devise_scope :user do
   root to: 'devise/sessions#home'
   end
@@ -47,6 +47,8 @@ Rails.application.routes.draw do
   end
   get '/success', to: 'payment#success'
 get '/cancel', to: 'payment#cancel'
+
+#  get '/auth/facebook/callback', to: 'sessions#create'
     # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   
     # Defines the root path route ("/")

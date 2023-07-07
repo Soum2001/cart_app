@@ -52,8 +52,6 @@ class User::OrdersController < ApplicationController
 			'user_addresses.street_no','user_addresses.plot_no',
 			'user_addresses.district','user_addresses.state',
 			'user_addresses.nationality','user_addresses.pincode')
-			
-			
 	end
 
 	def order_status

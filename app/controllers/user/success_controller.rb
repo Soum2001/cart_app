@@ -1,5 +1,4 @@
 class User::SuccessController < ApplicationController
-	include Sidekiq::Worker
 	def index
 		@total_price = 0
 		@address_id = UserAddress.where(is_permanent: 1,user_id: current_user.id)
@@ -25,13 +24,15 @@ class User::SuccessController < ApplicationController
 		@order.update(total_price: @total_price)
 		pdf = Prawn::Document.new
 		pdf.bounding_box([0, pdf.cursor], width: pdf.bounds.width / 2) do
-			pdf.text "Hi #{current_user.first_name}", align: :left, size: 10
+			pdf.text "Order Details", align: :left, size: 30
+			pdf.text "Hi #{current_user.first_name}", align: :left, size: 20
+			pdf.text "Invoice number: #{@order.invoice_number}", align: :left, size: 15
 			pdf.move_down 5
-			pdf.text "Thanks for purchasing from Ekart", size: 9
+			pdf.text "Thanks for purchasing from Ekart", size: 12
 		end
 		pdf.move_up 20
-	  pdf.bounding_box([pdf.bounds.width / 2, pdf.cursor], width: pdf.bounds.width / 2) do
-			pdf.draw_text "shipped to",at: [80, pdf.cursor]
+	  pdf.bounding_box([pdf.bounds.width / 2, pdf.cursor], width: pdf.bounds.width / 2,size: 12) do
+			pdf.draw_text "shipped to",at: [80, pdf.cursor], size: 14
 			address_data = [
 				["plot no:", "#{@address_id[0].plot_no}"],
 				["street no:", "#{@address_id[0].street_no}"],
@@ -42,17 +43,17 @@ class User::SuccessController < ApplicationController
 				["pincode:", "#{@address_id[0].pincode}"]
 			]
 			cell_width = pdf.bounds.width / 2 - 30 # Adjust the width of the individual cells
-			pdf.table address_data, cell_style: { border_width: 0, width: cell_width, padding: [2, 0, 2, 0], inline_format: true, align: :center, size: 9 }
+			pdf.table address_data, cell_style: { border_width: 0, width: cell_width, padding: [2, 0, 2, 0], inline_format: true, align: :center, size: 12 }
 		end
 		pdf.move_down 30
-		pdf.text "Your purchased order is listed below", size: 9
+		pdf.text "Your purchased order is listed below", size: 12
 		pdf.bounding_box([0, pdf.cursor], width: pdf.bounds.width) do
 			order_data = products
 			cell_width = pdf.bounds.width / 2 - 200 # Adjust the width of the individual cells
-			pdf.table order_data, cell_style: { border_width: 0, width: cell_width, padding: [3, 0, 3, 0], inline_format: true, align: :center, size: 10,float: :left }
+			pdf.table order_data, cell_style: { border_width: 0, width: cell_width, padding: [3, 0, 3, 0], inline_format: true, align: :center, size: 12,float: :left }
 		end
 		pdf.move_down 50
-		pdf.text " Thank You"
+		pdf.text " Thank You", size: 12
 		pdf.render_file(Rails.root.join('public', "order_#{@order.id}.pdf"))	
 		SendMailJob.perform_later(current_user, @order, @order_items)
 		#OrderMailer.order_checkout(current_user,@order,@order_items).deliver_now

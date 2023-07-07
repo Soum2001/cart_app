@@ -9,7 +9,8 @@ stripe.redirectToCheckout({
   sessionId: sessionId,
   mode:'payment',
   lineItems: lineItems,
-  successUrl: "http://localhost:3000/user/success", // Replace with your success URL
+  customerEmail: '<%= j current_user.email %>',
+  successUrl: "https://localhost:3000/user/success", // Replace with your success URL
   cancelUrl: "https://example.com/cancel" 
 	}).then((result) => {
   // Handle any errors that occur during the redirect to the Stripe payment page

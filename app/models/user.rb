@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable, :lockable, :timeoutable, :trackable
+         :recoverable, :rememberable, :validatable, :confirmable, :lockable, :timeoutable, :trackable, :omniauthable, omniauth_providers: %i[facebook]
 
   validates :first_name, presence: true, format: { with: /\A[A-Za-z]+\z/, message: "should only contain alphabetic characters" }
   validates :last_name, presence: true, format: { with: /\A[A-Za-z]+\z/, message: "should only contain alphabetic characters" }
@@ -61,6 +61,14 @@ class User < ApplicationRecord
   #     errors.add(:base, "You are forbidden to sign in after #{forbidden_days} days of inactivity.")
   #   end
   # end
+
+  def self.from_omniauth(auth)
+    name_split = auth.info.name.split(" ")
+    user = User.where(email: auth.info.email).first
+    user ||= User.create!(provider: auth.provider, uid: auth.uid, last_name: name_split[0], first_name: name_split[1], email: auth.info.email, password: Devise.friendly_token[0, 20])
+      user
+  end
+
 end
 
 
